@@ -1,0 +1,451 @@
+<title>ผังการต่อสาย Rover 90</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --ground:#F6F7F9; --surface:#FFFFFF; --surface-2:#EDF0F4;
+  --ink:#161B22; --ink-2:#4A5560; --ink-3:#7B8794;
+  --line:#DCE2E9; --line-strong:#C3CCD6;
+  --accent-ink:#0E5A68; --accent-soft:#DAEEF1;
+  --warn:#A44E11; --warn-soft:#FAEADB;
+  --ok:#1F6B4A; --ok-soft:#DEEFE5;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D1117; --surface:#151B23; --surface-2:#1D242E;
+    --ink:#E4EAF0; --ink-2:#A2ADBA; --ink-3:#6E7B89;
+    --line:#28303B; --line-strong:#3A4451;
+    --accent-ink:#7FD4E2; --accent-soft:#0F3037;
+    --warn:#E09750; --warn-soft:#33230F;
+    --ok:#5DBF92; --ok-soft:#12301F;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0D1117; --surface:#151B23; --surface-2:#1D242E;
+  --ink:#E4EAF0; --ink-2:#A2ADBA; --ink-3:#6E7B89;
+  --line:#28303B; --line-strong:#3A4451;
+  --accent-ink:#7FD4E2; --accent-soft:#0F3037;
+  --warn:#E09750; --warn-soft:#33230F;
+  --ok:#5DBF92; --ok-soft:#12301F;
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:"IBM Plex Sans Thai","Segoe UI",system-ui,sans-serif;
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px;margin:0 auto;padding:32px 20px 80px}
+
+.mast{border-bottom:2px solid var(--ink);padding-bottom:16px;margin-bottom:24px}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--accent-ink);font-weight:600;margin-bottom:9px}
+h1{font-family:"Chakra Petch","IBM Plex Sans Thai",sans-serif;font-weight:700;
+  font-size:clamp(28px,5vw,42px);line-height:1.1;margin:0 0 8px;text-wrap:balance}
+.dek{color:var(--ink-2);font-size:17px;margin:0;max-width:62ch}
+
+h2{font-family:"Chakra Petch","IBM Plex Sans Thai",sans-serif;font-weight:600;
+  font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);margin:0 0 4px}
+.sec-title{font-family:"Chakra Petch","IBM Plex Sans Thai",sans-serif;
+  font-weight:700;font-size:24px;margin:0 0 6px;line-height:1.2}
+.sec{margin-bottom:48px}
+.sec-note{color:var(--ink-2);margin:0 0 18px;max-width:64ch}
+
+/* ---- แผ่นกระดาษสำหรับรูปวงจร : สีคงที่ทั้งสองธีม อ่านง่ายและพิมพ์ได้ ---- */
+figure{margin:0 0 14px;background:#F8F6F1;border:1px solid var(--line-strong);
+  border-radius:4px;padding:14px 14px 8px;overflow-x:auto}
+figure svg{display:block;width:100%;height:auto;min-width:520px}
+figcaption{font-size:13.5px;color:#5A5750;padding:8px 4px 2px;line-height:1.55;
+  border-top:1px solid #E2DED4;margin-top:8px}
+figcaption b{color:#2A2822}
+
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin:0 0 16px;padding:11px 14px;
+  background:var(--surface);border:1px solid var(--line);border-radius:3px}
+.lg{display:flex;align-items:center;gap:8px;font-size:14px}
+.sw{width:22px;height:4px;border-radius:2px;flex:0 0 auto}
+
+.flag{display:flex;gap:10px;margin:14px 0 0;padding:11px 14px;
+  border-left:3px solid var(--warn);background:var(--warn-soft);
+  border-radius:0 3px 3px 0;font-size:14.5px;line-height:1.6}
+.flag b{color:var(--warn);font-weight:600;white-space:nowrap}
+.flag.ok{border-left-color:var(--ok);background:var(--ok-soft)}
+.flag.ok b{color:var(--ok)}
+
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:3px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:480px}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{background:var(--surface-2);font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+tbody tr{background:var(--surface)}
+tbody tr:last-child td{border-bottom:0}
+.mono{font-family:"IBM Plex Mono",monospace;font-size:13.5px;font-weight:600}
+
+.shots{display:grid;gap:11px;counter-reset:s}
+.shot{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent-ink);
+  border-radius:3px;padding:13px 16px}
+.shot h4{font-family:"Chakra Petch","IBM Plex Sans Thai",sans-serif;font-size:16px;
+  font-weight:600;margin:0 0 3px;display:flex;gap:9px;align-items:baseline}
+.shot h4 i{font-family:"IBM Plex Mono",monospace;font-size:11px;font-style:normal;
+  color:var(--accent-ink);letter-spacing:.1em}
+.shot p{margin:0;color:var(--ink-2);font-size:14.5px;line-height:1.6}
+
+footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);
+  color:var(--ink-3);font-size:13.5px}
+
+@media print{
+  body{background:#fff}
+  .wrap{max-width:none;padding:0}
+  figure{page-break-inside:avoid;break-inside:avoid}
+}
+@media (max-width:640px){ .wrap{padding:24px 14px 60px} }
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">คู่มือช่วงเดินสาย · นาทีที่ 08–28</div>
+  <h1>ผังการต่อสาย Rover 90</h1>
+  <p class="dek">ต่อทีละกลุ่มตามลำดับในหน้านี้ อย่าข้ามไปกลุ่มหลังก่อน เพราะกลุ่มแรกคือกลุ่มเดียวที่ต่อผิดแล้วของพัง</p>
+</header>
+
+<div class="legend">
+  <div class="lg"><span class="sw" style="background:#D2342B"></span>ไฟบวก</div>
+  <div class="lg"><span class="sw" style="background:#1A1A1A"></span>กราวด์ (GND)</div>
+  <div class="lg"><span class="sw" style="background:#E07B18"></span>ฝั่งล้อซ้าย</div>
+  <div class="lg"><span class="sw" style="background:#2F6FB5"></span>ฝั่งล้อขวา</div>
+  <div class="lg"><span class="sw" style="background:#4BA3D3"></span>อัลตราโซนิก</div>
+  <div class="lg"><span class="sw" style="background:#2E8B57"></span>จอ OLED</div>
+  <div class="lg"><span class="sw" style="background:#8A4FA8"></span>buzzer</div>
+</div>
+
+<!-- ============================================================ -->
+<section class="sec">
+  <h2>กลุ่มที่ 1 · นาทีที่ 08–14</h2>
+  <p class="sec-title">ไฟเลี้ยง</p>
+  <p class="sec-note">กลุ่มเดียวที่ต่อผิดแล้วโมดูลไหม้ ต่อให้เสร็จและถูกก่อนแตะกลุ่มอื่น สังเกตว่าไฟเดินทางเป็นทอด ๆ จากถ่านเข้า L298N แล้วค่อยแบ่งออกมาเลี้ยง ESP32 ไม่ได้ต่อถ่านเข้า ESP32 ตรง ๆ</p>
+
+  <figure>
+    <svg viewBox="0 0 900 440" role="img" aria-label="ผังไฟเลี้ยง ถ่าน 18650 สองก้อนต่อเข้าขั้ว 12V และ GND ของ L298N จากนั้นขา 5V ของ L298N จ่ายไฟให้ขา VIN ของ ESP32 และ GND ต่อถึงกัน">
+      <!-- กล่องถ่าน -->
+      <rect x="40" y="150" width="200" height="130" rx="8" fill="#3A3F45" stroke="#22262B" stroke-width="2"/>
+      <rect x="58" y="172" width="164" height="36" rx="18" fill="#5A6068"/>
+      <rect x="58" y="222" width="164" height="36" rx="18" fill="#5A6068"/>
+      <text x="140" y="196" text-anchor="middle" font-size="13" fill="#D8DCE1" font-family="monospace">18650</text>
+      <text x="140" y="246" text-anchor="middle" font-size="13" fill="#D8DCE1" font-family="monospace">18650</text>
+      <text x="140" y="140" text-anchor="middle" font-size="14" fill="#2A2822" font-weight="600">กล่องถ่าน 2 ก้อน</text>
+      <text x="140" y="303" text-anchor="middle" font-size="12" fill="#5A5750">7.4 โวลต์</text>
+      <circle cx="240" cy="190" r="5" fill="#D2342B"/>
+      <circle cx="240" cy="240" r="5" fill="#1A1A1A"/>
+
+      <!-- L298N -->
+      <rect x="350" y="95" width="230" height="235" rx="6" fill="#1E6B5E" stroke="#14493F" stroke-width="2"/>
+      <rect x="378" y="112" width="174" height="52" rx="3" fill="#4A4F55" stroke="#33373C"/>
+      <text x="465" y="144" text-anchor="middle" font-size="12" fill="#C9CDD2" font-family="monospace">HEATSINK</text>
+      <text x="465" y="192" text-anchor="middle" font-size="15" fill="#EAF3F0" font-weight="600" font-family="monospace">L298N</text>
+      <rect x="382" y="298" width="166" height="32" rx="3" fill="#0F4A40" stroke="#0A3630"/>
+      <circle cx="400" cy="314" r="6" fill="#B9BEC4"/><circle cx="450" cy="314" r="6" fill="#B9BEC4"/><circle cx="500" cy="314" r="6" fill="#B9BEC4"/>
+      <text x="400" y="290" text-anchor="middle" font-size="12" fill="#EAF3F0" font-family="monospace">12V</text>
+      <text x="450" y="290" text-anchor="middle" font-size="12" fill="#EAF3F0" font-family="monospace">GND</text>
+      <text x="500" y="290" text-anchor="middle" font-size="12" fill="#EAF3F0" font-family="monospace">5V</text>
+      <!-- jumper 5V-EN -->
+      <rect x="518" y="205" width="46" height="20" rx="3" fill="#D9C24A" stroke="#A8942F"/>
+      <text x="541" y="220" text-anchor="middle" font-size="10" fill="#3A3200" font-family="monospace">5V-EN</text>
+      <text x="541" y="245" text-anchor="middle" font-size="10" fill="#EAF3F0">คาไว้</text>
+
+      <!-- ESP32 -->
+      <rect x="700" y="70" width="150" height="300" rx="6" fill="#1B1F26" stroke="#0D1014" stroke-width="2"/>
+      <rect x="722" y="88" width="106" height="60" rx="3" fill="#9AA1A9" stroke="#7B828A"/>
+      <text x="775" y="124" text-anchor="middle" font-size="11" fill="#2A2E33" font-family="monospace">ESP32</text>
+      <rect x="752" y="344" width="46" height="20" rx="3" fill="#8A9199"/>
+      <text x="775" y="392" text-anchor="middle" font-size="12" fill="#5A5750">USB</text>
+      <text x="775" y="180" text-anchor="middle" font-size="13" fill="#C7CDD4" font-family="monospace">NodeMCU</text>
+      <rect x="694" y="203" width="12" height="14" rx="2" fill="#C9A227"/>
+      <text x="714" y="214" font-size="12" fill="#E6EBF0" font-family="monospace">VIN</text>
+      <rect x="694" y="253" width="12" height="14" rx="2" fill="#C9A227"/>
+      <text x="714" y="264" font-size="12" fill="#E6EBF0" font-family="monospace">GND</text>
+
+      <!-- สายไฟ -->
+      <g fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="240,190 300,190 300,395 396,395 396,330" stroke="#D2342B"/>
+        <polyline points="240,240 276,240 276,418 445,418 445,330" stroke="#1A1A1A"/>
+        <polyline points="500,330 500,378 645,378 645,210 700,210" stroke="#D2342B"/>
+        <polyline points="455,330 455,400 664,400 664,260 700,260" stroke="#1A1A1A"/>
+      </g>
+      <text x="318" y="185" font-size="12" fill="#8E2620" font-weight="600">แดง</text>
+      <text x="292" y="235" font-size="12" fill="#1A1A1A" font-weight="600">ดำ</text>
+      <text x="556" y="371" font-size="12" fill="#8E2620" font-weight="600">5V → VIN</text>
+      <text x="556" y="416" font-size="12" fill="#1A1A1A" font-weight="600">GND → GND</text>
+    </svg>
+    <figcaption><b>4 เส้น</b> · ถ่านเข้าขั้ว 12V และ GND ของ L298N จากนั้น L298N แบ่งไฟ 5 โวลต์ออกมาเลี้ยง ESP32 ผ่านขา VIN และต้องมีสาย GND เชื่อมสองบอร์ดถึงกันด้วยเสมอ</figcaption>
+  </figure>
+
+  <div class="flag"><b>ผิดแล้วพัง</b><span>สลับขั้วถ่านเข้า L298N คือความผิดพลาดเดียวในคาบนี้ที่ทำให้ของไหม้ทันที ตรวจสีสายก่อนขันน็อตทุกครั้ง แดงเข้า 12V ดำเข้า GND</span></div>
+  <div class="flag"><b>ต้องคาไว้</b><span>jumper สีเหลือง 5V-EN บน L298N ถ้าถอดออก ขา 5V จะไม่มีไฟ และ ESP32 จะไม่ติดเลยทั้งที่ต่อครบทุกเส้น</span></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="sec">
+  <h2>กลุ่มที่ 2 · นาทีที่ 14–20</h2>
+  <p class="sec-title">มอเตอร์และสายควบคุม</p>
+  <p class="sec-note">กลุ่มนี้ต่อผิดไม่พัง แค่รถวิ่งกลับทาง แก้ทีหลังได้ ให้แยกสีจำเป็นฝั่ง ส้มคือฝั่งซ้ายทั้งชุด น้ำเงินคือฝั่งขวาทั้งชุด</p>
+
+  <figure>
+    <svg viewBox="0 0 900 500" role="img" aria-label="ผังมอเตอร์ มอเตอร์ซ้ายเข้า OUT1 OUT2 มอเตอร์ขวาเข้า OUT3 OUT4 และสายควบคุมหกเส้นจาก ENA IN1 IN2 IN3 IN4 ENB ไปยังขา 14 27 26 25 33 32 ของ ESP32">
+      <!-- มอเตอร์ -->
+      <rect x="40" y="110" width="120" height="66" rx="6" fill="#D8B23A" stroke="#A88A22" stroke-width="2"/>
+      <rect x="160" y="126" width="44" height="34" rx="6" fill="#9AA1A9" stroke="#7B828A"/>
+      <text x="100" y="150" text-anchor="middle" font-size="13" fill="#403208" font-weight="600">มอเตอร์ซ้าย</text>
+      <rect x="40" y="250" width="120" height="66" rx="6" fill="#D8B23A" stroke="#A88A22" stroke-width="2"/>
+      <rect x="160" y="266" width="44" height="34" rx="6" fill="#9AA1A9" stroke="#7B828A"/>
+      <text x="100" y="290" text-anchor="middle" font-size="13" fill="#403208" font-weight="600">มอเตอร์ขวา</text>
+
+      <!-- L298N -->
+      <rect x="300" y="80" width="240" height="350" rx="6" fill="#1E6B5E" stroke="#14493F" stroke-width="2"/>
+      <rect x="330" y="96" width="180" height="44" rx="3" fill="#4A4F55" stroke="#33373C"/>
+      <text x="420" y="164" text-anchor="middle" font-size="15" fill="#EAF3F0" font-weight="600" font-family="monospace">L298N</text>
+      <!-- ขั้วมอเตอร์ -->
+      <rect x="294" y="186" width="34" height="30" rx="3" fill="#0F4A40" stroke="#0A3630"/>
+      <circle cx="311" cy="201" r="6" fill="#B9BEC4"/>
+      <text x="340" y="196" font-size="12" fill="#EAF3F0" font-family="monospace">OUT1</text>
+      <text x="340" y="212" font-size="12" fill="#EAF3F0" font-family="monospace">OUT2</text>
+      <rect x="294" y="286" width="34" height="30" rx="3" fill="#0F4A40" stroke="#0A3630"/>
+      <circle cx="311" cy="301" r="6" fill="#B9BEC4"/>
+      <text x="340" y="296" font-size="12" fill="#EAF3F0" font-family="monospace">OUT3</text>
+      <text x="340" y="312" font-size="12" fill="#EAF3F0" font-family="monospace">OUT4</text>
+      <!-- ขาควบคุม -->
+      <g font-family="monospace" font-size="12" fill="#EAF3F0" text-anchor="end">
+        <rect x="534" y="199" width="12" height="12" rx="2" fill="#C9A227"/><text x="528" y="209">ENA</text>
+        <rect x="534" y="239" width="12" height="12" rx="2" fill="#C9A227"/><text x="528" y="249">IN1</text>
+        <rect x="534" y="279" width="12" height="12" rx="2" fill="#C9A227"/><text x="528" y="289">IN2</text>
+        <rect x="534" y="319" width="12" height="12" rx="2" fill="#C9A227"/><text x="528" y="329">IN3</text>
+        <rect x="534" y="359" width="12" height="12" rx="2" fill="#C9A227"/><text x="528" y="369">IN4</text>
+        <rect x="534" y="399" width="12" height="12" rx="2" fill="#C9A227"/><text x="528" y="409">ENB</text>
+      </g>
+
+      <!-- ESP32 -->
+      <rect x="700" y="80" width="150" height="360" rx="6" fill="#1B1F26" stroke="#0D1014" stroke-width="2"/>
+      <rect x="722" y="96" width="106" height="52" rx="3" fill="#9AA1A9" stroke="#7B828A"/>
+      <text x="775" y="127" text-anchor="middle" font-size="11" fill="#2A2E33" font-family="monospace">ESP32</text>
+      <g font-family="monospace" font-size="12" fill="#E6EBF0">
+        <rect x="694" y="182" width="12" height="12" rx="2" fill="#C9A227"/><text x="714" y="192">14</text>
+        <rect x="694" y="222" width="12" height="12" rx="2" fill="#C9A227"/><text x="714" y="232">27</text>
+        <rect x="694" y="262" width="12" height="12" rx="2" fill="#C9A227"/><text x="714" y="272">26</text>
+        <rect x="694" y="302" width="12" height="12" rx="2" fill="#C9A227"/><text x="714" y="312">25</text>
+        <rect x="694" y="342" width="12" height="12" rx="2" fill="#C9A227"/><text x="714" y="352">33</text>
+        <rect x="694" y="382" width="12" height="12" rx="2" fill="#C9A227"/><text x="714" y="392">32</text>
+      </g>
+
+      <g fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="204,136 250,136 250,194 294,194" stroke="#E07B18"/>
+        <polyline points="204,152 232,152 232,208 294,208" stroke="#E4A85E"/>
+        <polyline points="204,276 250,276 250,294 294,294" stroke="#2F6FB5"/>
+        <polyline points="204,292 232,292 232,308 294,308" stroke="#6FA3D6"/>
+        <polyline points="546,205 574,205 574,188 694,188" stroke="#E07B18"/>
+        <polyline points="546,245 590,245 590,228 694,228" stroke="#E07B18"/>
+        <polyline points="546,285 606,285 606,268 694,268" stroke="#E07B18"/>
+        <polyline points="546,325 622,325 622,308 694,308" stroke="#2F6FB5"/>
+        <polyline points="546,365 638,365 638,348 694,348" stroke="#2F6FB5"/>
+        <polyline points="546,405 654,405 654,388 694,388" stroke="#2F6FB5"/>
+      </g>
+      <text x="420" y="466" text-anchor="middle" font-size="13" fill="#5A5750">ส้ม = ฝั่งซ้าย ENA IN1 IN2 → ขา 14 27 26     น้ำเงิน = ฝั่งขวา IN3 IN4 ENB → ขา 25 33 32</text>
+    </svg>
+    <figcaption><b>10 เส้น</b> · มอเตอร์ 4 เส้นเข้าขั้วสกรู และสายควบคุม 6 เส้นจาก L298N ไป ESP32 ต่อสายมอเตอร์กลับขั้วไม่พัง แค่ล้อหมุนกลับทาง</figcaption>
+  </figure>
+
+  <div class="flag"><b>ถอดก่อน</b><span>ถอด jumper สีดำที่ครอบขา ENA และ ENB ออกก่อนเดินสาย ถ้าลืม จะเสียบสายไม่ได้และปรับความเร็วไม่ได้</span></div>
+  <div class="flag ok"><b>ผิดได้</b><span>ถ้าอัปโหลดโค้ด 01 แล้วล้อหมุนถอยหลัง ให้สลับสายมอเตอร์สองเส้นของข้างนั้น ถ้าล้อขวาหมุนก่อนล้อซ้าย แปลว่าสายควบคุมสลับฝั่ง</span></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="sec">
+  <h2>กลุ่มที่ 3 · นาทีที่ 20–26</h2>
+  <p class="sec-title">เซนเซอร์ จอ และเสียง</p>
+  <p class="sec-note">ทุกเส้นในกลุ่มนี้ต่อเข้า ESP32 โดยตรง ไม่ผ่าน L298N จุดที่ต้องระวังคือแรงดันไฟเลี้ยง อัลตราโซนิกใช้ 5 โวลต์ แต่จอใช้ 3.3 โวลต์ ห้ามสลับกัน</p>
+
+  <figure>
+    <svg viewBox="0 0 940 600" role="img" aria-label="ผังเซนเซอร์ HC-SR04 ต่อขา 5V และขา 5 กับ 18 ของ ESP32 จอ OLED ต่อ 3V3 กับขา 21 และ 22 buzzer ต่อขา 4 และสาย GND ทุกตัวมารวมที่ breadboard จุดเดียว">
+      <!-- ESP32 -->
+      <rect x="300" y="70" width="160" height="430" rx="6" fill="#1B1F26" stroke="#0D1014" stroke-width="2"/>
+      <rect x="324" y="88" width="112" height="56" rx="3" fill="#9AA1A9" stroke="#7B828A"/>
+      <text x="380" y="122" text-anchor="middle" font-size="11" fill="#2A2E33" font-family="monospace">ESP32</text>
+      <text x="380" y="176" text-anchor="middle" font-size="13" fill="#C7CDD4" font-family="monospace">NodeMCU</text>
+      <g font-family="monospace" font-size="12" fill="#E6EBF0" text-anchor="end">
+        <rect x="454" y="204" width="12" height="12" rx="2" fill="#C9A227"/><text x="448" y="214">5V</text>
+        <rect x="454" y="244" width="12" height="12" rx="2" fill="#C9A227"/><text x="448" y="254">5</text>
+        <rect x="454" y="284" width="12" height="12" rx="2" fill="#C9A227"/><text x="448" y="294">18</text>
+        <rect x="454" y="324" width="12" height="12" rx="2" fill="#C9A227"/><text x="448" y="334">3V3</text>
+        <rect x="454" y="364" width="12" height="12" rx="2" fill="#C9A227"/><text x="448" y="374">21</text>
+        <rect x="454" y="404" width="12" height="12" rx="2" fill="#C9A227"/><text x="448" y="414">22</text>
+        <rect x="454" y="444" width="12" height="12" rx="2" fill="#C9A227"/><text x="448" y="454">4</text>
+        <rect x="454" y="474" width="12" height="12" rx="2" fill="#C9A227"/><text x="448" y="484">GND</text>
+      </g>
+
+      <!-- HC-SR04 -->
+      <rect x="640" y="60" width="220" height="96" rx="5" fill="#20539E" stroke="#153B75" stroke-width="2"/>
+      <circle cx="694" cy="100" r="27" fill="#A9AFB6" stroke="#7D848B" stroke-width="3"/>
+      <circle cx="694" cy="100" r="15" fill="#6E747B"/>
+      <circle cx="806" cy="100" r="27" fill="#A9AFB6" stroke="#7D848B" stroke-width="3"/>
+      <circle cx="806" cy="100" r="15" fill="#6E747B"/>
+      <text x="750" y="78" text-anchor="middle" font-size="11" fill="#D6E2F5" font-family="monospace">HC-SR04</text>
+      <g font-family="monospace" font-size="10" fill="#C6D9F2" text-anchor="middle">
+        <text x="686" y="138">VCC</text><text x="726" y="138">TRIG</text>
+        <text x="766" y="138">ECHO</text><text x="806" y="138">GND</text>
+      </g>
+      <g fill="#C9A227">
+        <rect x="680" y="144" width="12" height="12" rx="2"/><rect x="720" y="144" width="12" height="12" rx="2"/>
+        <rect x="760" y="144" width="12" height="12" rx="2"/><rect x="800" y="144" width="12" height="12" rx="2"/>
+      </g>
+
+      <!-- OLED -->
+      <rect x="660" y="250" width="170" height="122" rx="5" fill="#1D4E8F" stroke="#123566" stroke-width="2"/>
+      <rect x="702" y="266" width="112" height="62" rx="3" fill="#0A0D12"/>
+      <text x="758" y="292" text-anchor="middle" font-size="13" fill="#8FE8FF" font-family="monospace">ROVER</text>
+      <text x="758" y="312" text-anchor="middle" font-size="10" fill="#8FE8FF" font-family="monospace">21.4 cm</text>
+      <text x="758" y="352" text-anchor="middle" font-size="11" fill="#C6D9F2" font-family="monospace">OLED 0.96"</text>
+      <g font-family="monospace" font-size="10" fill="#C6D9F2">
+        <text x="666" y="280">VCC</text><text x="666" y="308">GND</text>
+        <text x="666" y="336">SDA</text><text x="666" y="364">SCL</text>
+      </g>
+      <g fill="#C9A227">
+        <rect x="648" y="270" width="12" height="12" rx="2"/><rect x="648" y="298" width="12" height="12" rx="2"/>
+        <rect x="648" y="326" width="12" height="12" rx="2"/><rect x="648" y="354" width="12" height="12" rx="2"/>
+      </g>
+
+      <!-- Buzzer -->
+      <circle cx="740" cy="462" r="40" fill="#17191C" stroke="#0A0B0D" stroke-width="2"/>
+      <circle cx="740" cy="462" r="7" fill="#3A3F45"/>
+      <text x="800" y="466" font-size="12" fill="#5A5750">buzzer</text>
+      <rect x="700" y="414" width="10" height="12" rx="2" fill="#C9A227"/>
+      <rect x="734" y="414" width="10" height="12" rx="2" fill="#C9A227"/>
+      <text x="692" y="408" font-size="12" fill="#5A5750">+</text>
+      <text x="736" y="408" font-size="12" fill="#5A5750">&#8722;</text>
+
+      <!-- รางรวม GND บน breadboard -->
+      <rect x="496" y="520" width="210" height="26" rx="4" fill="#2A2E33" stroke="#15181C" stroke-width="2"/>
+      <g fill="#6E747B">
+        <circle cx="530" cy="533" r="3"/><circle cx="560" cy="533" r="3"/><circle cx="590" cy="533" r="3"/>
+        <circle cx="620" cy="533" r="3"/><circle cx="650" cy="533" r="3"/><circle cx="680" cy="533" r="3"/>
+      </g>
+      <text x="601" y="570" text-anchor="middle" font-size="12" fill="#5A5750">จุดรวม GND บน breadboard</text>
+
+      <!-- สายไฟ -->
+      <g fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="466,210 556,210 556,196 686,196 686,156" stroke="#D2342B"/>
+        <polyline points="466,250 580,250 580,214 726,214 726,156" stroke="#4BA3D3"/>
+        <polyline points="466,290 604,290 604,232 766,232 766,156" stroke="#4BA3D3"/>
+        <polyline points="466,330 620,330 620,276 648,276" stroke="#D2342B"/>
+        <polyline points="466,370 600,370 600,332 648,332" stroke="#2E8B57"/>
+        <polyline points="466,410 584,410 584,360 648,360" stroke="#2E8B57"/>
+        <polyline points="466,450 568,450 568,400 705,400 705,414" stroke="#8A4FA8"/>
+        <polyline points="466,480 490,480 490,533 496,533" stroke="#1A1A1A"/>
+        <polyline points="706,533 890,533 890,190 806,190 806,156" stroke="#1A1A1A"/>
+        <polyline points="640,520 640,304 648,304" stroke="#1A1A1A"/>
+        <polyline points="676,520 676,392 739,392 739,414" stroke="#1A1A1A"/>
+      </g>
+      <text x="500" y="202" font-size="11" fill="#8E2620" font-weight="600">5V</text>
+      <text x="500" y="322" font-size="11" fill="#8E2620" font-weight="600">3.3V</text>
+      <text x="880" y="360" font-size="11" fill="#1A1A1A" font-weight="600" text-anchor="end">GND</text>
+    </svg>
+    <figcaption><b>10 เส้น</b> · อัลตราโซนิกกินไฟ 5 โวลต์ จอ OLED กินไฟ 3.3 โวลต์ ส่วน GND ใช้เส้นเดียวแล้วแยกไปสามจุดได้ ผ่าน breadboard</figcaption>
+  </figure>
+
+  <div class="flag"><b>ผิดแล้วพัง</b><span>ต่อไฟ 5 โวลต์เข้าจอ OLED จะทำให้จอไหม้ จอต้องรับจากขา 3V3 เท่านั้น ตรวจซ้ำก่อนเปิดสวิตช์</span></div>
+</section>
+
+<!-- ============================================================ -->
+<section class="sec">
+  <h2>รายละเอียดที่ห้ามข้าม</h2>
+  <p class="sec-title">ตัวแบ่งแรงดันบนขา ECHO</p>
+  <p class="sec-note">HC-SR04 ส่งสัญญาณกลับมาที่ 5 โวลต์ แต่ขา ESP32 รับได้แค่ 3.3 โวลต์ ต่อตรงแล้วทำงานได้ในวันแรก แต่ขาจะเสื่อมไปเรื่อย ๆ จนพังในอีกไม่กี่สัปดาห์ ครูควรบัดกรีส่วนนี้ติดสายไว้ล่วงหน้าทั้ง 15 ชุด</p>
+
+  <figure>
+    <svg viewBox="0 0 760 240" role="img" aria-label="วงจรแบ่งแรงดัน ขา ECHO ผ่านตัวต้านทาน 1 กิโลโอห์ม ไปยัง GPIO18 และจากจุดเดียวกันผ่านตัวต้านทาน 2 กิโลโอห์ม ลง GND">
+      <text x="60" y="76" font-size="14" fill="#2A2822" font-weight="600" text-anchor="end">ECHO</text>
+      <text x="60" y="94" font-size="11" fill="#8E2620" text-anchor="end">5 โวลต์</text>
+      <circle cx="76" cy="70" r="6" fill="#4BA3D3"/>
+      <g fill="none" stroke="#4BA3D3" stroke-width="4" stroke-linecap="round">
+        <line x1="76" y1="70" x2="200" y2="70"/>
+        <line x1="290" y1="70" x2="420" y2="70"/>
+      </g>
+      <rect x="200" y="52" width="90" height="36" rx="4" fill="#D9CDB0" stroke="#8A7B58" stroke-width="2"/>
+      <rect x="216" y="52" width="8" height="36" fill="#7A4A2A"/>
+      <rect x="232" y="52" width="8" height="36" fill="#1A1A1A"/>
+      <rect x="248" y="52" width="8" height="36" fill="#C4402F"/>
+      <text x="245" y="112" text-anchor="middle" font-size="13" fill="#2A2822" font-weight="600">1 kΩ</text>
+
+      <circle cx="420" cy="70" r="6" fill="#2A2822"/>
+      <g fill="none" stroke="#4BA3D3" stroke-width="4" stroke-linecap="round">
+        <line x1="420" y1="70" x2="560" y2="70"/>
+      </g>
+      <rect x="560" y="52" width="120" height="36" rx="5" fill="#1B1F26" stroke="#0D1014" stroke-width="2"/>
+      <text x="620" y="76" text-anchor="middle" font-size="13" fill="#E6EBF0" font-family="monospace">GPIO 18</text>
+      <text x="620" y="112" text-anchor="middle" font-size="11" fill="#1F6B4A">3.3 โวลต์ ปลอดภัย</text>
+
+      <g fill="none" stroke="#1A1A1A" stroke-width="4" stroke-linecap="round">
+        <line x1="420" y1="70" x2="420" y2="120"/>
+        <line x1="420" y1="176" x2="420" y2="200"/>
+        <line x1="386" y1="200" x2="454" y2="200"/>
+        <line x1="396" y1="212" x2="444" y2="212"/>
+        <line x1="406" y1="222" x2="434" y2="222"/>
+      </g>
+      <rect x="402" y="120" width="36" height="56" rx="4" fill="#D9CDB0" stroke="#8A7B58" stroke-width="2"/>
+      <rect x="402" y="134" width="36" height="7" fill="#7A4A2A"/>
+      <rect x="402" y="146" width="36" height="7" fill="#1A1A1A"/>
+      <rect x="402" y="158" width="36" height="7" fill="#C4402F"/>
+      <text x="462" y="152" font-size="13" fill="#2A2822" font-weight="600">2 kΩ</text>
+      <text x="420" y="240" text-anchor="middle" font-size="12" fill="#5A5750">GND</text>
+    </svg>
+    <figcaption><b>สูตร</b> · แรงดันที่ออกมา = 5 × 2 ÷ (1 + 2) = 3.3 โวลต์พอดี ถ้าไม่มีตัวต้านทาน 2 kΩ ให้ใช้ 1 kΩ ต่ออนุกรมสองตัวแทนได้</figcaption>
+  </figure>
+</section>
+
+<!-- ============================================================ -->
+<section class="sec">
+  <h2>สรุปเป็นตัวอักษร</h2>
+  <p class="sec-title">ตารางเทียบขา</p>
+  <p class="sec-note">รูปข้างบนไม่ได้วาดตำแหน่งขาให้ตรงกับบอร์ดจริงเป๊ะ เพราะ ESP32 แต่ละรุ่นเรียงขาไม่เหมือนกัน ให้ยึด <b>ตัวอักษรที่พิมพ์อยู่บนบอร์ด</b> เป็นหลักเสมอ</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>กลุ่ม</th><th>จาก</th><th>ไปที่</th><th>สีสายที่แนะนำ</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>ถ่าน +</td><td class="mono">L298N 12V</td><td>แดง</td></tr>
+        <tr><td>1</td><td>ถ่าน −</td><td class="mono">L298N GND</td><td>ดำ</td></tr>
+        <tr><td>1</td><td class="mono">L298N 5V</td><td class="mono">ESP32 VIN</td><td>แดง</td></tr>
+        <tr><td>1</td><td class="mono">L298N GND</td><td class="mono">ESP32 GND</td><td>ดำ</td></tr>
+        <tr><td>2</td><td>มอเตอร์ซ้าย</td><td class="mono">OUT1 OUT2</td><td>ส้ม</td></tr>
+        <tr><td>2</td><td>มอเตอร์ขวา</td><td class="mono">OUT3 OUT4</td><td>น้ำเงิน</td></tr>
+        <tr><td>2</td><td class="mono">ENA IN1 IN2</td><td class="mono">14 · 27 · 26</td><td>ส้ม</td></tr>
+        <tr><td>2</td><td class="mono">IN3 IN4 ENB</td><td class="mono">25 · 33 · 32</td><td>น้ำเงิน</td></tr>
+        <tr><td>3</td><td class="mono">HC-SR04 VCC</td><td class="mono">ESP32 5V</td><td>แดง</td></tr>
+        <tr><td>3</td><td class="mono">HC-SR04 TRIG</td><td class="mono">ESP32 5</td><td>ฟ้า</td></tr>
+        <tr><td>3</td><td class="mono">HC-SR04 ECHO</td><td class="mono">ESP32 18 ผ่านตัวแบ่งแรงดัน</td><td>ฟ้า</td></tr>
+        <tr><td>3</td><td class="mono">OLED VCC</td><td class="mono">ESP32 3V3</td><td>แดง</td></tr>
+        <tr><td>3</td><td class="mono">OLED SDA SCL</td><td class="mono">ESP32 21 · 22</td><td>เขียว</td></tr>
+        <tr><td>3</td><td class="mono">Buzzer +</td><td class="mono">ESP32 4</td><td>ม่วง</td></tr>
+        <tr><td>3</td><td>GND ของทั้งสามตัว</td><td class="mono">ESP32 GND</td><td>ดำ</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="sec">
+  <h2>ทำต่อได้อีก</h2>
+  <p class="sec-title">ถ่ายรูปรถต้นแบบไว้ใช้แทนรูปวาด</p>
+  <p class="sec-note">เมื่อประกอบรถต้นแบบคันแรกเสร็จ ถ่ายรูป 6 รูปนี้ไว้ รูปถ่ายของจริงจะช่วยเด็กได้มากกว่ารูปวาด เพราะเห็นว่าสายจริงพันกันแบบไหนและหัวเสียบหน้าตาอย่างไร</p>
+  <div class="shots">
+    <div class="shot"><h4><i>รูป 1</i> ทั้งคันจากด้านบน</h4><p>ถ่ายตรง ๆ จากข้างบน เห็นทุกโมดูลพร้อมกัน ใช้เป็นภาพเปิดตอนอธิบายว่ามีอะไรบ้าง</p></div>
+    <div class="shot"><h4><i>รูป 2</i> ขั้วสกรูของ L298N ระยะใกล้</h4><p>ให้เห็นชัดว่าสายแดงอยู่ช่องไหน สายดำอยู่ช่องไหน และเห็น jumper 5V-EN ที่คาอยู่ นี่คือรูปที่สำคัญที่สุดในหกรูป</p></div>
+    <div class="shot"><h4><i>รูป 3</i> แถวขาของ ESP32 ระยะใกล้</h4><p>ถ่ายให้อ่านตัวอักษรบนบอร์ดออก เด็กจะได้เทียบกับของตัวเองว่าขา 14 อยู่ตรงไหน</p></div>
+    <div class="shot"><h4><i>รูป 4</i> ตัวแบ่งแรงดันที่บัดกรีแล้ว</h4><p>ให้เห็นว่าตัวต้านทานสองตัวอยู่ตรงไหนของสาย ECHO และหุ้มด้วยอะไร</p></div>
+    <div class="shot"><h4><i>รูป 5</i> จอ OLED และ buzzer ที่ติดตั้งแล้ว</h4><p>เห็นว่าติดจอไว้ตรงไหนของรถ และหันหน้าไปทางไหนถึงจะอ่านได้ตอนรถวิ่ง</p></div>
+    <div class="shot"><h4><i>รูป 6</i> รถที่เปิดสวิตช์แล้วจอติด</h4><p>ภาพเป้าหมาย ใช้บอกเด็กว่า “ต่อเสร็จแล้วต้องหน้าตาแบบนี้” ก่อนเริ่มลงมือ</p></div>
+  </div>
+  <div class="flag ok"><b>ส่งมาได้</b><span>ถ่ายเสร็จแล้วส่งรูปมา จะทำเป็นภาพพร้อมลูกศรและป้ายกำกับภาษาไทยชี้ทีละจุด แล้วรวมเข้ากับหน้านี้ให้</span></div>
+</section>
+
+<footer>
+  ใช้คู่กับใบตรวจสายที่แจกทีมละแผ่น · แนะนำให้ฉายหน้านี้ขึ้นจอตลอดช่วงนาทีที่ 08–28 และปริ๊นต์แปะไว้หน้าห้องอีกชุด
+</footer>
+
+</div>
