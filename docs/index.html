@@ -135,71 +135,136 @@ footer{margin-top:60px;padding-top:18px;border-top:1px solid var(--line);
 
 <!-- ================= ภาพรวมระบบ ================= -->
 <figure>
-  <svg viewBox="0 0 920 440" role="img" aria-label="แผนผังระบบของรถ ถ่านจ่ายไฟให้ L298N ซึ่งขับมอเตอร์สองตัวและแบ่งไฟ 5 โวลต์ให้ ESP32 ส่วน ESP32 คุยกับจอ OLED เซนเซอร์อัลตราโซนิก buzzer และปล่อย WiFi ให้มือถือเชื่อม">
-    <!-- ถ่าน -->
-    <rect x="30" y="60" width="150" height="80" rx="8" fill="#3A3F45" stroke="#22262B" stroke-width="2"/>
-    <text x="105" y="96" text-anchor="middle" font-size="14" fill="#D8DCE1" font-weight="600">ถ่าน 18650 ×2</text>
-    <text x="105" y="118" text-anchor="middle" font-size="11" fill="#9AA1A9">7.4 โวลต์</text>
+  <svg viewBox="0 0 940 570" role="img" aria-label="แผนผังระบบของรถ วาดเป็นหน้าตาบอร์ดจริง ถ่านจ่ายไฟให้ L298N ซึ่งขับมอเตอร์สองตัวและแบ่งไฟ 5 โวลต์ให้ ESP32 ส่วน ESP32 คุยกับจอ OLED เซนเซอร์อัลตราโซนิก buzzer และปล่อย WiFi ให้มือถือเชื่อมตรง">
 
-    <!-- L298N -->
-    <rect x="270" y="40" width="160" height="120" rx="6" fill="#1E6B5E" stroke="#14493F" stroke-width="2"/>
-    <text x="350" y="95" text-anchor="middle" font-size="16" fill="#EAF3F0" font-weight="600" font-family="monospace">L298N</text>
-    <text x="350" y="118" text-anchor="middle" font-size="11" fill="#BFD9D2">ตัวขับมอเตอร์</text>
+    <!-- ═══ กล่องถ่าน ═══ -->
+    <rect x="30" y="50" width="180" height="110" rx="8" fill="#3A3F45" stroke="#22262B" stroke-width="2"/>
+    <rect x="46" y="66" width="148" height="30" rx="15" fill="#5A6068"/>
+    <rect x="46" y="102" width="148" height="30" rx="15" fill="#5A6068"/>
+    <rect x="46" y="66" width="22" height="30" rx="10" fill="#C9CDD2"/>
+    <rect x="46" y="102" width="22" height="30" rx="10" fill="#C9CDD2"/>
+    <text x="126" y="86" text-anchor="middle" font-size="12" fill="#D8DCE1" font-family="monospace">18650</text>
+    <text x="126" y="122" text-anchor="middle" font-size="12" fill="#D8DCE1" font-family="monospace">18650</text>
+    <rect x="150" y="140" width="34" height="14" rx="3" fill="#C4402F"/>
+    <text x="167" y="151" text-anchor="middle" font-size="9" fill="#FFF">ON</text>
+    <text x="120" y="180" text-anchor="middle" font-size="12.5" fill="#5A5750" font-weight="600">กล่องถ่าน 7.4 โวลต์</text>
 
-    <!-- มอเตอร์ -->
-    <rect x="530" y="28" width="130" height="52" rx="6" fill="#D8B23A" stroke="#A88A22" stroke-width="2"/>
-    <text x="595" y="59" text-anchor="middle" font-size="13" fill="#403208" font-weight="600">มอเตอร์ซ้าย</text>
-    <rect x="530" y="112" width="130" height="52" rx="6" fill="#D8B23A" stroke="#A88A22" stroke-width="2"/>
-    <text x="595" y="143" text-anchor="middle" font-size="13" fill="#403208" font-weight="600">มอเตอร์ขวา</text>
+    <!-- ═══ L298N ═══ -->
+    <rect x="330" y="30" width="180" height="150" rx="6" fill="#1E6B5E" stroke="#14493F" stroke-width="2"/>
+    <circle cx="342" cy="42" r="4" fill="#C9A227"/><circle cx="498" cy="42" r="4" fill="#C9A227"/>
+    <circle cx="342" cy="168" r="4" fill="#C9A227"/><circle cx="498" cy="168" r="4" fill="#C9A227"/>
+    <rect x="348" y="52" width="44" height="96" rx="2" fill="#4A4F55" stroke="#33373C"/>
+    <rect x="354" y="52" width="5" height="96" fill="#33373C"/>
+    <rect x="368" y="52" width="5" height="96" fill="#33373C"/>
+    <rect x="382" y="52" width="5" height="96" fill="#33373C"/>
+    <rect x="502" y="56" width="18" height="30" rx="2" fill="#2456A8" stroke="#173C78"/>
+    <circle cx="511" cy="66" r="4" fill="#B9BEC4"/><circle cx="511" cy="78" r="4" fill="#B9BEC4"/>
+    <rect x="502" y="118" width="18" height="30" rx="2" fill="#2456A8" stroke="#173C78"/>
+    <circle cx="511" cy="128" r="4" fill="#B9BEC4"/><circle cx="511" cy="140" r="4" fill="#B9BEC4"/>
+    <rect x="398" y="162" width="60" height="16" rx="2" fill="#2456A8" stroke="#173C78"/>
+    <circle cx="410" cy="170" r="3.5" fill="#B9BEC4"/><circle cx="428" cy="170" r="3.5" fill="#B9BEC4"/><circle cx="446" cy="170" r="3.5" fill="#B9BEC4"/>
+    <rect x="468" y="148" width="30" height="13" rx="2" fill="#D9C24A" stroke="#A8942F"/>
+    <text x="440" y="80" font-size="15" fill="#EAF3F0" font-weight="600" font-family="monospace">L298N</text>
+    <text x="440" y="100" font-size="10.5" fill="#BFD9D2">ตัวขับมอเตอร์</text>
+    <text x="420" y="205" text-anchor="middle" font-size="12.5" fill="#5A5750" font-weight="600">แจกไฟและขับมอเตอร์</text>
 
-    <!-- ESP32 -->
-    <rect x="270" y="250" width="160" height="150" rx="6" fill="#1B1F26" stroke="#0D1014" stroke-width="2"/>
-    <text x="350" y="320" text-anchor="middle" font-size="16" fill="#E6EBF0" font-weight="600" font-family="monospace">ESP32</text>
-    <text x="350" y="343" text-anchor="middle" font-size="11" fill="#8A95A1">สมองของรถ</text>
+    <!-- ═══ มอเตอร์ + ล้อ ═══ -->
+    <rect x="640" y="34" width="100" height="50" rx="5" fill="#D8B23A" stroke="#A88A22" stroke-width="2"/>
+    <rect x="656" y="46" width="52" height="26" rx="3" fill="#C4A032"/>
+    <circle cx="785" cy="59" r="40" fill="#1A1A1A" stroke="#0A0A0A" stroke-width="2"/>
+    <circle cx="785" cy="59" r="30" fill="none" stroke="#33373C" stroke-width="3"/>
+    <circle cx="785" cy="59" r="11" fill="#6E747B"/>
+    <text x="690" y="110" text-anchor="middle" font-size="12.5" fill="#5A5750" font-weight="600">มอเตอร์ซ้าย</text>
 
-    <!-- อุปกรณ์รอบ ESP32 -->
-    <rect x="30" y="230" width="150" height="50" rx="6" fill="#1D4E8F" stroke="#123566" stroke-width="2"/>
-    <text x="105" y="260" text-anchor="middle" font-size="13" fill="#C6D9F2" font-weight="600">จอ OLED</text>
-    <rect x="30" y="300" width="150" height="50" rx="6" fill="#20539E" stroke="#153B75" stroke-width="2"/>
-    <text x="105" y="330" text-anchor="middle" font-size="13" fill="#C6D9F2" font-weight="600">HC-SR04</text>
-    <rect x="30" y="370" width="150" height="50" rx="6" fill="#2A2E33" stroke="#15181C" stroke-width="2"/>
-    <text x="105" y="400" text-anchor="middle" font-size="13" fill="#C9CDD2" font-weight="600">buzzer</text>
+    <rect x="640" y="140" width="100" height="50" rx="5" fill="#D8B23A" stroke="#A88A22" stroke-width="2"/>
+    <rect x="656" y="152" width="52" height="26" rx="3" fill="#C4A032"/>
+    <circle cx="785" cy="165" r="40" fill="#1A1A1A" stroke="#0A0A0A" stroke-width="2"/>
+    <circle cx="785" cy="165" r="30" fill="none" stroke="#33373C" stroke-width="3"/>
+    <circle cx="785" cy="165" r="11" fill="#6E747B"/>
+    <text x="690" y="216" text-anchor="middle" font-size="12.5" fill="#5A5750" font-weight="600">มอเตอร์ขวา</text>
 
-    <!-- มือถือ -->
-    <rect x="700" y="255" width="105" height="150" rx="14" fill="#17191C" stroke="#0A0B0D" stroke-width="2"/>
-    <rect x="712" y="278" width="81" height="100" rx="3" fill="#101820"/>
-    <text x="752" y="322" text-anchor="middle" font-size="11" fill="#8FE8FF" font-family="monospace">ROVER-01</text>
-    <text x="752" y="342" text-anchor="middle" font-size="9" fill="#7d8894" font-family="monospace">192.168.4.1</text>
-    <text x="752" y="432" text-anchor="middle" font-size="12" fill="#5A5750">มือถือของคุณ</text>
+    <!-- ═══ ESP32 ═══ -->
+    <rect x="340" y="290" width="160" height="225" rx="7" fill="#1B1F26" stroke="#0D1014" stroke-width="2"/>
+    <path d="M 372 300 h 8 v 8 h -8 v 7 h 8 v 8 h -8" fill="none" stroke="#8A9199" stroke-width="2"/>
+    <path d="M 392 300 h 8 v 8 h -8 v 7 h 8 v 8 h -8" fill="none" stroke="#8A9199" stroke-width="2"/>
+    <path d="M 412 300 h 8 v 8 h -8 v 7 h 8 v 8 h -8" fill="none" stroke="#8A9199" stroke-width="2"/>
+    <rect x="366" y="330" width="108" height="66" rx="3" fill="#9AA1A9" stroke="#7B828A" stroke-width="1.5"/>
+    <text x="420" y="368" text-anchor="middle" font-size="12" fill="#2A2E33" font-family="monospace" font-weight="600">ESP32</text>
+    <line x1="346" y1="300" x2="346" y2="500" stroke="#C9A227" stroke-width="7" stroke-dasharray="7 5"/>
+    <line x1="494" y1="300" x2="494" y2="500" stroke="#C9A227" stroke-width="7" stroke-dasharray="7 5"/>
+    <text x="420" y="428" text-anchor="middle" font-size="13" fill="#C7CDD4" font-family="monospace">NodeMCU</text>
+    <text x="420" y="448" text-anchor="middle" font-size="10.5" fill="#8A95A1">สมองของรถ</text>
+    <rect x="358" y="472" width="26" height="14" rx="2" fill="#33373C"/>
+    <text x="371" y="482" text-anchor="middle" font-size="7.5" fill="#B9BEC4">BOOT</text>
+    <rect x="456" y="472" width="26" height="14" rx="2" fill="#33373C"/>
+    <text x="469" y="482" text-anchor="middle" font-size="7.5" fill="#B9BEC4">EN</text>
+    <rect x="396" y="504" width="48" height="16" rx="3" fill="#8A9199" stroke="#6E747B"/>
+    <text x="420" y="542" text-anchor="middle" font-size="12" fill="#5A5750">USB-C</text>
 
-    <!-- เส้นเชื่อม -->
-    <g fill="none" stroke-width="4" stroke-linecap="round">
-      <line x1="180" y1="100" x2="270" y2="100" stroke="#D2342B"/>
-      <line x1="430" y1="70" x2="530" y2="55" stroke="#E07B18"/>
-      <line x1="430" y1="130" x2="530" y2="138" stroke="#2F6FB5"/>
-      <line x1="350" y1="160" x2="350" y2="250" stroke="#D2342B"/>
-      <line x1="180" y1="255" x2="270" y2="285" stroke="#2E8B57"/>
-      <line x1="180" y1="325" x2="270" y2="325" stroke="#4BA3D3"/>
-      <line x1="180" y1="395" x2="270" y2="365" stroke="#8A4FA8"/>
+    <!-- ═══ จอ OLED ═══ -->
+    <rect x="40" y="262" width="160" height="84" rx="5" fill="#1D4E8F" stroke="#123566" stroke-width="2"/>
+    <g fill="#C9A227">
+      <rect x="66" y="255" width="9" height="12" rx="1.5"/><rect x="96" y="255" width="9" height="12" rx="1.5"/>
+      <rect x="126" y="255" width="9" height="12" rx="1.5"/><rect x="156" y="255" width="9" height="12" rx="1.5"/>
     </g>
-    <!-- WiFi -->
-    <g fill="none" stroke="#6C4FA8" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 9">
-      <line x1="430" y1="325" x2="700" y2="328" stroke-dasharray="8 8"/>
-    </g>
-    <path d="M 560 300 a 22 22 0 0 1 30 0" fill="none" stroke="#6C4FA8" stroke-width="3" stroke-linecap="round"/>
-    <path d="M 552 310 a 34 34 0 0 1 46 0" fill="none" stroke="#6C4FA8" stroke-width="2.5" stroke-linecap="round" opacity="0.55"/>
+    <rect x="58" y="282" width="124" height="52" rx="2" fill="#0A0D12"/>
+    <text x="120" y="305" text-anchor="middle" font-size="13" fill="#8FE8FF" font-family="monospace">ROVER</text>
+    <text x="120" y="322" text-anchor="middle" font-size="9.5" fill="#8FE8FF" font-family="monospace">21.4 cm</text>
+    <text x="120" y="366" text-anchor="middle" font-size="12.5" fill="#5A5750" font-weight="600">จอ OLED</text>
 
-    <g font-size="11.5" fill="#5A5750" font-weight="600">
-      <text x="196" y="90">ไฟหลัก</text>
-      <text x="452" y="52">หมุนล้อ</text>
-      <text x="362" y="205">แบ่งไฟ 5V</text>
-      <text x="198" y="245">แสดงผล</text>
-      <text x="192" y="315">วัดระยะ</text>
-      <text x="198" y="405">ส่งเสียง</text>
-      <text x="548" y="352">WiFi ของรถเอง</text>
+    <!-- ═══ HC-SR04 ═══ -->
+    <rect x="30" y="390" width="180" height="78" rx="5" fill="#20539E" stroke="#153B75" stroke-width="2"/>
+    <text x="120" y="407" text-anchor="middle" font-size="10" fill="#C6D9F2" font-family="monospace">HC-SR04</text>
+    <circle cx="72" cy="435" r="25" fill="#A9AFB6" stroke="#7D848B" stroke-width="3"/>
+    <circle cx="72" cy="435" r="14" fill="#6E747B"/>
+    <circle cx="168" cy="435" r="25" fill="#A9AFB6" stroke="#7D848B" stroke-width="3"/>
+    <circle cx="168" cy="435" r="14" fill="#6E747B"/>
+    <rect x="106" y="424" width="28" height="12" rx="3" fill="#C9CDD2" stroke="#9AA1A9"/>
+    <text x="120" y="488" text-anchor="middle" font-size="12.5" fill="#5A5750" font-weight="600">เซนเซอร์วัดระยะ</text>
+
+    <!-- ═══ buzzer ═══ -->
+    <circle cx="262" cy="520" r="30" fill="#17191C" stroke="#0A0B0D" stroke-width="2"/>
+    <circle cx="262" cy="520" r="5" fill="#3A3F45"/>
+    <text x="242" y="496" font-size="11" fill="#5A5750" font-weight="600">+</text>
+    <text x="262" y="566" text-anchor="middle" font-size="12.5" fill="#5A5750" font-weight="600">buzzer</text>
+
+    <!-- ═══ มือถือ ═══ -->
+    <rect x="720" y="290" width="112" height="212" rx="16" fill="#17191C" stroke="#0A0B0D" stroke-width="2"/>
+    <rect x="732" y="310" width="88" height="164" rx="4" fill="#101820"/>
+    <rect x="756" y="298" width="40" height="6" rx="3" fill="#2A2E33"/>
+    <text x="776" y="336" text-anchor="middle" font-size="11" fill="#8FE8FF" font-family="monospace">ROVER-01</text>
+    <text x="776" y="352" text-anchor="middle" font-size="8.5" fill="#7d8894" font-family="monospace">192.168.4.1</text>
+    <text x="776" y="392" text-anchor="middle" font-size="21" fill="#4ade80" font-family="monospace" font-weight="600">21.4</text>
+    <polyline points="744,452 756,442 766,448 778,432 790,440 800,428 810,436" fill="none" stroke="#4ade80" stroke-width="2"/>
+    <text x="776" y="524" text-anchor="middle" font-size="12.5" fill="#5A5750" font-weight="600">มือถือของคุณ</text>
+
+    <!-- ═══ เส้นเชื่อม ═══ -->
+    <g fill="none" stroke-width="4.5" stroke-linecap="round">
+      <line x1="210" y1="100" x2="330" y2="100" stroke="#D2342B"/>
+      <line x1="520" y1="70" x2="640" y2="58" stroke="#E07B18"/>
+      <line x1="520" y1="132" x2="640" y2="163" stroke="#2F6FB5"/>
+      <line x1="428" y1="180" x2="424" y2="290" stroke="#D2342B"/>
+      <line x1="200" y1="300" x2="340" y2="330" stroke="#2E8B57"/>
+      <line x1="210" y1="420" x2="340" y2="400" stroke="#4BA3D3"/>
+      <line x1="292" y1="516" x2="340" y2="490" stroke="#8A4FA8"/>
+    </g>
+    <g fill="none" stroke="#6C4FA8" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="9 8">
+      <line x1="500" y1="392" x2="720" y2="392"/>
+    </g>
+    <path d="M 588 366 a 24 24 0 0 1 32 0" fill="none" stroke="#6C4FA8" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 579 377 a 38 38 0 0 1 50 0" fill="none" stroke="#6C4FA8" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+
+    <g font-size="12" fill="#5A5750" font-weight="600">
+      <text x="240" y="90">ไฟหลัก</text>
+      <text x="556" y="48">หมุนล้อ</text>
+      <text x="438" y="242">แบ่งไฟ 5V</text>
+      <text x="232" y="294">แสดงผล</text>
+      <text x="246" y="400">วัดระยะ</text>
+      <text x="290" y="472">เสียง</text>
+      <text x="562" y="420">WiFi ของรถเอง</text>
     </g>
   </svg>
-  <figcaption><b>รถหนึ่งคันมีสองวงจรคุยกัน</b> — วงจรกำลัง (ถ่าน → L298N → มอเตอร์) กับวงจรสมอง (ESP32 กับอุปกรณ์รอบตัว) เชื่อมกันด้วยไฟ 5V และต้องมี GND ร่วมกันเสมอ</figcaption>
+  <figcaption><b>รถหนึ่งคันมีสองวงจรคุยกัน</b> — วงจรกำลัง (ถ่าน → L298N → มอเตอร์) กับวงจรสมอง (ESP32 กับอุปกรณ์รอบตัว) เชื่อมกันด้วยไฟ 5V และต้องมี GND ร่วมกันเสมอ · หน้าตาแต่ละบอร์ดวาดตามของจริง จะได้จำได้ตอนหยิบจากกล่อง</figcaption>
 </figure>
 
 <!-- ================= ไทม์ไลน์ ================= -->
