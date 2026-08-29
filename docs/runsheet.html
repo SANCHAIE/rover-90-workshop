@@ -1,0 +1,565 @@
+<title>Rover 90</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --ground:#F6F7F9;
+  --surface:#FFFFFF;
+  --surface-2:#EDF0F4;
+  --ink:#161B22;
+  --ink-2:#4A5560;
+  --ink-3:#7B8794;
+  --line:#DCE2E9;
+  --line-strong:#C3CCD6;
+  --accent:#0E5A68;
+  --accent-ink:#0E5A68;
+  --accent-soft:#DAEEF1;
+  --warn:#A44E11;
+  --warn-soft:#FAEADB;
+  --ok:#1F6B4A;
+  --ok-soft:#DEEFE5;
+  --shadow:0 1px 2px rgba(22,27,34,.06),0 8px 24px -16px rgba(22,27,34,.28);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D1117;
+    --surface:#151B23;
+    --surface-2:#1D242E;
+    --ink:#E4EAF0;
+    --ink-2:#A2ADBA;
+    --ink-3:#6E7B89;
+    --line:#28303B;
+    --line-strong:#3A4451;
+    --accent:#4FBED0;
+    --accent-ink:#7FD4E2;
+    --accent-soft:#0F3037;
+    --warn:#E09750;
+    --warn-soft:#33230F;
+    --ok:#5DBF92;
+    --ok-soft:#12301F;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0D1117;
+  --surface:#151B23;
+  --surface-2:#1D242E;
+  --ink:#E4EAF0;
+  --ink-2:#A2ADBA;
+  --ink-3:#6E7B89;
+  --line:#28303B;
+  --line-strong:#3A4451;
+  --accent:#4FBED0;
+  --accent-ink:#7FD4E2;
+  --accent-soft:#0F3037;
+  --warn:#E09750;
+  --warn-soft:#33230F;
+  --ok:#5DBF92;
+  --ok-soft:#12301F;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"IBM Plex Sans Thai","Segoe UI",system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:32px 20px 80px}
+
+.mast{border-bottom:2px solid var(--ink);padding-bottom:18px;margin-bottom:26px}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent-ink);font-weight:600;margin-bottom:10px;
+}
+h1{
+  font-family:"Chakra Petch","IBM Plex Sans Thai",sans-serif;
+  font-weight:700;font-size:clamp(30px,5.4vw,46px);
+  line-height:1.08;margin:0 0 8px;letter-spacing:-.01em;text-wrap:balance;
+}
+.dek{color:var(--ink-2);font-size:17px;margin:0;max-width:62ch}
+
+.facts{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);
+  margin:26px 0 40px;border-radius:3px;overflow:hidden;
+}
+.fact{background:var(--surface);padding:13px 15px}
+.fact dt{
+  font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-3);margin:0 0 3px;
+}
+.fact dd{
+  margin:0;font-family:"Chakra Petch",sans-serif;font-weight:600;
+  font-size:21px;line-height:1.2;font-variant-numeric:tabular-nums;
+}
+.fact dd small{font-size:12px;font-weight:500;color:var(--ink-3);margin-left:3px}
+
+h2{
+  font-family:"Chakra Petch","IBM Plex Sans Thai",sans-serif;
+  font-weight:600;font-size:13px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-3);margin:0 0 4px;
+}
+.sec-title{
+  font-family:"Chakra Petch","IBM Plex Sans Thai",sans-serif;
+  font-weight:700;font-size:25px;margin:0 0 6px;line-height:1.2;
+}
+.sec{margin-bottom:52px}
+.sec-note{color:var(--ink-2);margin:0 0 22px;max-width:64ch}
+
+/* ---------- weight bar ---------- */
+.weights{display:grid;gap:8px;margin-bottom:8px}
+.wrow{display:grid;grid-template-columns:132px 1fr 52px;gap:12px;align-items:center}
+.wrow span:first-child{font-size:14.5px;color:var(--ink-2)}
+.bar{height:9px;background:var(--surface-2);border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:2px}
+.bar i.b2{background:var(--warn)}
+.bar i.b3{background:var(--line-strong)}
+.wrow span:last-child{
+  font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;text-align:right;
+}
+
+/* ---------- timeline ---------- */
+.tl{display:flex;flex-direction:column}
+.blk{display:grid;grid-template-columns:92px 1fr;position:relative}
+.clock{position:relative;padding:22px 16px 22px 0;text-align:right}
+.clock::after{content:"";position:absolute;right:0;top:0;bottom:0;width:2px;background:var(--line)}
+.blk:first-child .clock::after{top:24px}
+.blk:last-child .clock::after{bottom:auto;height:24px}
+.clock b{
+  display:block;font-family:"IBM Plex Mono",monospace;font-weight:600;
+  font-size:17px;font-variant-numeric:tabular-nums;line-height:1.25;
+}
+.clock span{
+  display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;
+  color:var(--ink-3);margin-top:2px;
+}
+.dot{
+  position:absolute;right:-5px;top:28px;width:12px;height:12px;border-radius:50%;
+  background:var(--surface);border:2px solid var(--line-strong);
+}
+.blk[data-kind="key"] .dot{background:var(--warn);border-color:var(--warn)}
+.blk[data-kind="key"] .clock::after{background:var(--warn)}
+.blk[data-kind="break"] .dot{background:var(--line-strong)}
+
+.card{padding:20px 0 26px 26px}
+.card-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:4px}
+.mode{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;
+  letter-spacing:.1em;padding:3px 8px;border-radius:3px;
+  background:var(--accent-soft);color:var(--accent-ink);white-space:nowrap;
+}
+.card h3{
+  font-family:"Chakra Petch","IBM Plex Sans Thai",sans-serif;
+  font-weight:700;font-size:21px;margin:0;line-height:1.25;
+}
+.lede{color:var(--ink-2);margin:6px 0 14px;max-width:60ch}
+
+.rows{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.row{background:var(--surface);display:grid;grid-template-columns:104px 1fr;gap:14px;padding:11px 14px;align-items:start}
+.row dt{
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-3);padding-top:4px;
+}
+.row dd{margin:0;font-size:15px;line-height:1.6}
+.row.exit dd{color:var(--ok);font-weight:500}
+
+.flag{
+  display:flex;gap:10px;margin-top:14px;padding:11px 14px;
+  border-left:3px solid var(--warn);background:var(--warn-soft);
+  border-radius:0 3px 3px 0;font-size:14.5px;line-height:1.6;
+}
+.flag b{color:var(--warn);font-weight:600;white-space:nowrap}
+.flag.cut{border-left-color:var(--ink-3);background:var(--surface-2)}
+.flag.cut b{color:var(--ink-2)}
+
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:3px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{
+  background:var(--surface-2);font-family:"IBM Plex Mono",monospace;
+  font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:600;
+}
+tbody tr{background:var(--surface)}
+tbody tr:last-child td{border-bottom:0}
+tbody th{
+  background:var(--surface-2);font-family:"Chakra Petch",sans-serif;
+  font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--ink-2);
+}
+code,.mono{font-family:"IBM Plex Mono",monospace;font-size:13.5px}
+td .mono{font-weight:600}
+.pill{
+  display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+  font-weight:600;padding:2px 7px;border-radius:3px;letter-spacing:.05em;
+}
+.pill.stop{background:var(--warn-soft);color:var(--warn)}
+.pill.go{background:var(--ok-soft);color:var(--ok)}
+
+.gaps{display:grid;gap:12px}
+.gap{
+  background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  border-left:3px solid var(--warn);padding:15px 18px;box-shadow:var(--shadow);
+}
+.gap.soft{border-left-color:var(--line-strong)}
+.gap.good{border-left-color:var(--ok)}
+.gap h4{
+  font-family:"Chakra Petch","IBM Plex Sans Thai",sans-serif;
+  font-size:17px;font-weight:600;margin:0 0 4px;display:flex;
+  flex-wrap:wrap;gap:9px;align-items:baseline;
+}
+.gap p{margin:0;color:var(--ink-2);font-size:15px;line-height:1.6}
+.cost{
+  font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:500;
+  color:var(--ink-3);font-variant-numeric:tabular-nums;
+}
+
+.check{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px 26px;list-style:none;padding:0;margin:0}
+.check li{
+  display:flex;gap:11px;align-items:flex-start;font-size:15px;
+  padding:7px 0;border-bottom:1px solid var(--line);line-height:1.55;
+}
+.check li::before{
+  content:"";flex:0 0 auto;width:15px;height:15px;margin-top:5px;
+  border:2px solid var(--line-strong);border-radius:2px;
+}
+.check li.crit::before{border-color:var(--warn)}
+
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:18px}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:14px 16px}
+.step b{
+  display:block;font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+  letter-spacing:.12em;color:var(--accent-ink);font-weight:600;margin-bottom:5px;
+}
+.step p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.55}
+.step strong{color:var(--ink);font-weight:600}
+
+footer{
+  margin-top:64px;padding-top:20px;border-top:1px solid var(--line);
+  color:var(--ink-3);font-size:13.5px;
+}
+@media (max-width:640px){
+  .wrap{padding:24px 14px 60px}
+  .blk{grid-template-columns:70px 1fr}
+  .clock{padding:20px 12px 20px 0}
+  .clock b{font-size:15px}
+  .card{padding-left:18px}
+  .row{grid-template-columns:1fr;gap:2px}
+  .row dt{padding-top:0}
+  .wrow{grid-template-columns:104px 1fr 46px;gap:8px}
+}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">แผนดำเนินกิจกรรม · 90 นาที · ฉบับปรับใหม่</div>
+  <h1>Rover 90</h1>
+  <p class="dek">เวิร์กช็อปหุ่นยนต์ ESP32 สำหรับนักเรียน ม.ปลาย — ต่อวงจรด้วยมือตัวเอง เขียนโค้ดให้รถวิ่ง แล้วปรับจูนจนแม่น</p>
+</header>
+
+<dl class="facts">
+  <div class="fact"><dt>ระยะเวลา</dt><dd>90<small>นาที</small></dd></div>
+  <div class="fact"><dt>จำนวนทีม</dt><dd>15<small>ทีม</small></dd></div>
+  <div class="fact"><dt>นักเรียน</dt><dd>30–45<small>คน</small></dd></div>
+  <div class="fact"><dt>ผู้ช่วยที่ต้องมี</dt><dd>2–3<small>คน</small></dd></div>
+  <div class="fact"><dt>เดินสาย</dt><dd>20<small>นาที</small></dd></div>
+  <div class="fact"><dt>เขียนโค้ด+จูน</dt><dd>32<small>นาที</small></dd></div>
+  <div class="fact"><dt>ต้องตั้งค่าเครือข่าย</dt><dd>0<small>อย่าง</small></dd></div>
+</dl>
+
+<!-- ============ WEIGHTING ============ -->
+<section class="sec">
+  <h2>สัดส่วนเวลา</h2>
+  <p class="sec-title">น้ำหนักของคาบนี้อยู่ตรงไหน</p>
+  <p class="sec-note">ครึ่งหนึ่งของคาบเป็นงานมือกับงานโค้ด ส่วนเซนเซอร์และ IoT เป็นของปิดท้ายที่ทำให้เห็นภาพ ไม่ใช่แกนหลัก</p>
+  <div class="weights">
+    <div class="wrow"><span>ต่อวงจรด้วยมือ</span><div class="bar"><i style="width:25%"></i></div><span>20 น.</span></div>
+    <div class="wrow"><span>เขียนโค้ดให้รถวิ่ง</span><div class="bar"><i style="width:21%"></i></div><span>17 น.</span></div>
+    <div class="wrow"><span>ปรับจูนความแม่น</span><div class="bar"><i class="b2" style="width:19%"></i></div><span>15 น.</span></div>
+    <div class="wrow"><span>เซนเซอร์</span><div class="bar"><i class="b3" style="width:15%"></i></div><span>12 น.</span></div>
+    <div class="wrow"><span>IoT ขึ้นกราฟ</span><div class="bar"><i class="b3" style="width:12%"></i></div><span>10 น.</span></div>
+    <div class="wrow"><span>เปิด–พัก–ปิดคาบ</span><div class="bar"><i class="b3" style="width:20%"></i></div><span>16 น.</span></div>
+  </div>
+</section>
+
+<!-- ============ TIMELINE ============ -->
+<section class="sec">
+  <h2>ลำดับกิจกรรม</h2>
+  <p class="sec-title">ไทม์ไลน์ 90 นาที</p>
+  <p class="sec-note">แชสซี มอเตอร์ และล้อ ประกอบมาให้แล้ว นักเรียนรับผิดชอบการเดินสายทั้งหมดเอง ตั้งแต่ไฟเลี้ยงจนถึงเซนเซอร์</p>
+
+  <div class="tl">
+
+    <div class="blk">
+      <div class="clock"><div class="dot"></div><b>00–08</b><span>8 นาที</span></div>
+      <div class="card">
+        <div class="card-head"><span class="mode">เปิดคาบ</span><h3>เปิดกล่อง นับของ อ่านผัง</h3></div>
+        <p class="lede">ให้เด็กได้จับของก่อน แล้วค่อยฟังทฤษฎี ไม่ใช่กลับกัน</p>
+        <dl class="rows">
+          <div class="row"><dt>นักเรียน</dt><dd>เปิดกล่อง เช็กอุปกรณ์ตามรายการในใบงาน ตั้งชื่อทีมเขียนเทปกาวย่นแปะข้างรถ</dd></div>
+          <div class="row"><dt>ครู</dt><dd>อธิบายผังการต่อสายบนจอ 4 นาที เน้นสามข้อ: GND ต้องถึงกันหมด · ห้ามเปิดสวิตช์เอง · ผิดขั้วมอเตอร์ไม่พัง แต่ผิดขั้วไฟพัง</dd></div>
+          <div class="row exit"><dt>ไปต่อเมื่อ</dt><dd>ทุกทีมนับของครบและรู้ว่าจะต่ออะไรเข้าอะไร</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="blk" data-kind="key">
+      <div class="clock"><div class="dot"></div><b>08–28</b><span>20 นาที</span></div>
+      <div class="card">
+        <div class="card-head"><span class="mode">ลงมือ</span><h3>เดินสายทั้งคัน</h3></div>
+        <p class="lede">ช่วงที่ยาวที่สุดของคาบ และเป็นช่วงที่เด็กจะจำได้นานที่สุด ปล่อยให้ต่อผิดได้ แต่ต้องไม่ให้จ่ายไฟตอนต่อผิด</p>
+        <dl class="rows">
+          <div class="row"><dt>08–14</dt><dd>ไฟเลี้ยง: กล่องถ่าน → L298N · L298N 5V → ESP32 VIN · GND ร่วมทุกจุด</dd></div>
+          <div class="row"><dt>14–20</dt><dd>มอเตอร์เข้าเทอร์มินอล 4 เส้น · สายควบคุม L298N ↔ ESP32 อีก 6 เส้น</dd></div>
+          <div class="row"><dt>20–26</dt><dd>HC-SR04 4 เส้น (ตัวแบ่งแรงดันบัดกรีมาให้แล้ว) · จอ OLED 4 เส้น · buzzer 2 เส้น</dd></div>
+          <div class="row"><dt>26–28</dt><dd>ยกมือเรียกครูตรวจ ครูเซ็นชื่อในใบงาน แล้วทีมถึงจะเปิดสวิตช์ได้</dd></div>
+          <div class="row exit"><dt>ไปต่อเมื่อ</dt><dd>จอ OLED ติด และครูเซ็นใบตรวจสายครบ 15 ทีม</dd></div>
+        </dl>
+        <div class="flag"><b>กฎเหล็ก</b><span>ห้ามทีมใดเปิดสวิตช์ถ่านก่อนครูเซ็นชื่อ นี่คือด่านเดียวที่กันไม่ให้ ESP32 พังกลางคาบ ผู้ช่วยควรยืนประจำโซนละ 5 ทีมเพื่อให้ตรวจทันภายใน 2 นาที</span></div>
+      </div>
+    </div>
+
+    <div class="blk">
+      <div class="clock"><div class="dot"></div><b>28–33</b><span>5 นาที</span></div>
+      <div class="card">
+        <div class="card-head"><span class="mode">อัปโหลดแรก</span><h3>Hello Rover</h3></div>
+        <p class="lede">โค้ดสั้นที่สุดที่พิสูจน์ว่าทุกอย่างต่อถูก จอขึ้นชื่อทีม ล้อซ้ายหมุน แล้วล้อขวาหมุน</p>
+        <dl class="rows">
+          <div class="row"><dt>นักเรียน</dt><dd>เลือกบอร์ด ESP32 Dev Module เลือกพอร์ต กด Upload · ถ้าค้างที่ Connecting ให้กดปุ่ม BOOT ค้างไว้</dd></div>
+          <div class="row"><dt>ครู</dt><dd>ประกาศเสียงดังว่า “ล้อซ้ายต้องหมุนก่อน” ทีมที่ล้อขวาหมุนก่อนแปลว่าสลับสาย ให้แก้เดี๋ยวนี้</dd></div>
+          <div class="row exit"><dt>ไปต่อเมื่อ</dt><dd>ทั้ง 15 ทีมอัปโหลดสำเร็จอย่างน้อยหนึ่งครั้ง</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="blk">
+      <div class="clock"><div class="dot"></div><b>33–50</b><span>17 นาที</span></div>
+      <div class="card">
+        <div class="card-head"><span class="mode">CODING</span><h3>เขียนโค้ดให้รถวิ่ง</h3></div>
+        <p class="lede">ให้โครงฟังก์ชันเปล่ามา นักเรียนเติมเนื้อในเอง แล้วเรียงลำดับคำสั่งเป็นภารกิจของตัวเอง</p>
+        <dl class="rows">
+          <div class="row"><dt>33–40</dt><dd>เติมฟังก์ชัน <span class="mono">forward() back() left() right() stop()</span> ให้ครบ — ทดสอบทีละอันโดยยกล้อลอย</dd></div>
+          <div class="row"><dt>40–46</dt><dd>เขียนลำดับคำสั่งเอง: เดินหน้า 2 วิ → เลี้ยวขวา → เดินหน้า 1 วิ → กลับที่เดิม</dd></div>
+          <div class="row"><dt>46–50</dt><dd>ลองเปลี่ยนค่าความเร็ว 100 / 180 / 255 สังเกตว่าค่าต่ำสุดที่ล้อยังหมุนไหวคือเท่าไร</dd></div>
+          <div class="row exit"><dt>ไปต่อเมื่อ</dt><dd>ทุกทีมมีรถที่วิ่งตามลำดับคำสั่งที่ตัวเองเขียน</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="blk" data-kind="break">
+      <div class="clock"><div class="dot"></div><b>50–53</b><span>3 นาที</span></div>
+      <div class="card">
+        <div class="card-head"><span class="mode">พัก</span><h3>ยืดเส้น เปลี่ยนถ่าน</h3></div>
+        <p class="lede">ครูเปิดฮอตสปอต ต่อโปรเจกเตอร์ และเปิดหน้ากราฟค้างไว้ให้พร้อมสำหรับช่วงท้าย</p>
+      </div>
+    </div>
+
+    <div class="blk" data-kind="key">
+      <div class="clock"><div class="dot"></div><b>53–68</b><span>15 นาที</span></div>
+      <div class="card">
+        <div class="card-head"><span class="mode">TUNING</span><h3>ปรับจูนจนแม่น</h3></div>
+        <p class="lede">หัวใจทาง STEM ของคาบนี้ รถวิ่งได้ไม่พอ ต้องวิ่งได้ตามที่สั่ง และนั่นต้องวัด</p>
+        <dl class="rows">
+          <div class="row"><dt>53–58</dt><dd>สั่งวิ่งตรง 2000 ms วัดระยะจริง คำนวณว่า 1 เซนติเมตรใช้เวลากี่มิลลิวินาที</dd></div>
+          <div class="row"><dt>58–62</dt><dd>รถเบี้ยว? ปรับ <span class="mono">TRIM_L</span> / <span class="mono">TRIM_R</span> ทีละ 0.05 จนวิ่งตรง</dd></div>
+          <div class="row"><dt>62–68</dt><dd>ภารกิจวัดผล: สั่งให้หยุดที่เส้น 100 ซม. ทีมละ 2 รอบ วัดความคลาดเคลื่อนเป็นเซนติเมตร</dd></div>
+          <div class="row exit"><dt>ไปต่อเมื่อ</dt><dd>ทุกทีมมีตัวเลขความคลาดเคลื่อน 2 รอบ พร้อมส่งขึ้นกราฟในช่วงท้าย</dd></div>
+        </dl>
+        <div class="flag"><b>ต้องมี</b><span>ตลับเมตรหรือไม้บรรทัดเหล็กครบ 15 อัน ทีมที่ไม่มีเครื่องมือวัดคือทีมที่ทำช่วงนี้ไม่ได้เลย</span></div>
+      </div>
+    </div>
+
+    <div class="blk">
+      <div class="clock"><div class="dot"></div><b>68–78</b><span>10 นาที</span></div>
+      <div class="card">
+        <div class="card-head"><span class="mode">SENSOR</span><h3>ให้รถมองเห็นและส่งเสียง</h3></div>
+        <p class="lede">แตะเรื่องเซนเซอร์พอให้เห็นว่าหุ่นยนต์ตัดสินใจเองได้ ไม่ลงลึกเรื่องระบบควบคุม</p>
+        <dl class="rows">
+          <div class="row"><dt>68–72</dt><dd>อ่านค่าอัลตราโซนิกขึ้นจอบนรถ เอามือโบกดูค่าวิ่ง เทียบไม้บรรทัดที่ 10 และ 30 ซม.</dd></div>
+          <div class="row"><dt>72–78</dt><dd>เขียนเงื่อนไขเดียว: ใกล้กว่า 15 ซม. ให้หยุดและ buzzer ร้อง แล้วขับเข้าหากำแพงทดสอบ</dd></div>
+          <div class="row exit"><dt>ไปต่อเมื่อ</dt><dd>รถทุกคันหยุดเองก่อนชนกำแพงได้</dd></div>
+        </dl>
+        <div class="flag cut"><b>ตัดได้</b><span>ถ้าช่วงเดินสายเกินเวลา ให้ตัดการเทียบไม้บรรทัดออก เหลือแค่เขียนเงื่อนไขหยุดก่อนชน ซึ่งใช้เวลา 4 นาที</span></div>
+      </div>
+    </div>
+
+    <div class="blk">
+      <div class="clock"><div class="dot"></div><b>78–86</b><span>8 นาที</span></div>
+      <div class="card">
+        <div class="card-head"><span class="mode">IoT</span><h3>รถกลายเป็นเว็บเซิร์ฟเวอร์</h3></div>
+        <p class="lede">ไม่ต้องมีเราเตอร์ ไม่ต้องมีเน็ต ไม่ต้องมีฮอตสปอต ตัวรถปล่อย WiFi ของตัวเองแล้วเสิร์ฟหน้าเว็บออกมาเอง นักเรียนเปิดมือถือเชื่อมแล้วเห็นกราฟระยะแบบสดพร้อมปุ่มบังคับรถ</p>
+        <dl class="rows">
+          <div class="row"><dt>78–82</dt><dd>กดปุ่ม BOOT ค้าง 1 วินาที รถปล่อย WiFi ชื่อ <span class="mono">ROVER-01</span> · มือถือเชื่อม แล้วเปิด <span class="mono">192.168.4.1</span></dd></div>
+          <div class="row"><dt>82–86</dt><dd>ดูกราฟระยะที่วิ่งสดตามการโบกมือ · ลองบังคับรถ · กดปุ่ม BOOT สั้น ๆ เพื่อปิด WiFi คืนคลื่นให้ทีมถัดไป</dd></div>
+          <div class="row"><dt>ครู</dt><dd>เรียกทีละ 3–4 ทีมขึ้นมาเปิด ที่เหลือเก็บของและกรอกใบงานระหว่างรอคิว</dd></div>
+          <div class="row exit"><dt>ไปต่อเมื่อ</dt><dd>ทุกทีมได้เปิดหน้าเว็บของรถตัวเองอย่างน้อยหนึ่งครั้ง</dd></div>
+        </dl>
+        <div class="flag"><b>ข้อสำคัญ</b><span>ห้ามให้ทั้ง 15 ทีมเปิด WiFi พร้อมกัน คลื่น 2.4 GHz จะแน่นจนเชื่อมไม่ติดสักทีม โค้ดตั้งค่าไว้ให้ WiFi ปิดอยู่ตอนเปิดเครื่อง ลดกำลังส่งเหลือ 8.5 dBm และปิดตัวเองอัตโนมัติใน 3 นาที</span></div>
+        <div class="flag cut"><b>ตัดได้</b><span>ถ้าช่วงเดินสายหรือปรับจูนกินเวลาเกิน ให้ข้ามช่วงนี้ทั้งช่วง ส่วนอื่นของคาบไม่กระทบเลยเพราะไม่มีอะไรพึ่งพากัน</span></div>
+      </div>
+    </div>
+
+    <div class="blk">
+      <div class="clock"><div class="dot"></div><b>86–90</b><span>4 นาที</span></div>
+      <div class="card">
+        <div class="card-head"><span class="mode">ปิดคาบ</span><h3>อ่านกราฟด้วยกัน</h3></div>
+        <p class="lede">ชี้ที่กราฟบนจอแล้วถาม อย่าเฉลย</p>
+        <dl class="rows">
+          <div class="row"><dt>คำถาม 1</dt><dd>ทำไมทีมที่ได้ค่าดีที่สุดกับแย่ที่สุดต่างกันหลายเท่า ทั้งที่ใช้ของชุดเดียวกัน</dd></div>
+          <div class="row"><dt>คำถาม 2</dt><dd>ถ้าถ่านอ่อนลง ตัวเลขที่จูนไว้วันนี้จะยังใช้ได้ไหม แล้วต้องเพิ่มอะไรถึงจะไม่ต้องจูนใหม่</dd></div>
+          <div class="row"><dt>แจก</dt><dd>QR โค้ดสำหรับดาวน์โหลดโค้ดทั้งชุด พร้อมโจทย์ต่อยอด 3 ข้อไปทำที่บ้าน</dd></div>
+        </dl>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ WIRING ============ -->
+<section class="sec">
+  <h2>ใบตรวจสาย</h2>
+  <p class="sec-title">ผังการต่อสายทั้งคัน</p>
+  <p class="sec-note">พิมพ์แจกทีมละ 1 แผ่น และแปะขยายไว้หน้าห้อง ครูใช้แผ่นนี้ตรวจก่อนเซ็นอนุญาตให้เปิดสวิตช์</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>จาก</th><th>ไปที่</th><th>จำนวนเส้น</th><th>จุดที่พลาดบ่อย</th></tr></thead>
+      <tbody>
+        <tr><th colspan="4">ไฟเลี้ยง — ต่อกลุ่มนี้ให้เสร็จและถูกก่อนเสมอ</th></tr>
+        <tr><td>กล่องถ่าน 18650 ×2</td><td>L298N ขั้ว <span class="mono">12V</span> และ <span class="mono">GND</span></td><td class="num">2</td><td>สลับขั้วแล้วโมดูลพัง ตรวจสีสายก่อนขัน</td></tr>
+        <tr><td>L298N <span class="mono">5V</span></td><td>ESP32 <span class="mono">VIN</span></td><td class="num">1</td><td>ต้องคา jumper 5V-EN ไว้ ไม่งั้นไม่มีไฟออก</td></tr>
+        <tr><td>L298N <span class="mono">GND</span></td><td>ESP32 <span class="mono">GND</span></td><td class="num">1</td><td>ลืมเส้นนี้แล้วมอเตอร์จะทำงานมั่ว หาสาเหตุยากที่สุด</td></tr>
+        <tr><th colspan="4">มอเตอร์และสายควบคุม</th></tr>
+        <tr><td>มอเตอร์ซ้าย / ขวา</td><td>L298N <span class="mono">OUT1-2</span> / <span class="mono">OUT3-4</span></td><td class="num">4</td><td>สลับขั้วได้ ไม่พัง แค่หมุนกลับทาง แก้ทีหลังได้</td></tr>
+        <tr><td>L298N <span class="mono">ENA IN1 IN2</span></td><td>ESP32 <span class="mono">14 · 27 · 26</span></td><td class="num">3</td><td>ถอด jumper ครอบ ENA ออกก่อน</td></tr>
+        <tr><td>L298N <span class="mono">IN3 IN4 ENB</span></td><td>ESP32 <span class="mono">25 · 33 · 32</span></td><td class="num">3</td><td>ถอด jumper ครอบ ENB ออกก่อน</td></tr>
+        <tr><th colspan="4">เซนเซอร์และการแสดงผล</th></tr>
+        <tr><td>HC-SR04 <span class="mono">VCC TRIG ECHO GND</span></td><td>ESP32 <span class="mono">5V · 5 · 18 · GND</span></td><td class="num">4</td><td>ECHO ต้องผ่านตัวแบ่งแรงดันที่บัดกรีมาให้ ห้ามต่อตรง</td></tr>
+        <tr><td>OLED <span class="mono">VCC GND SDA SCL</span></td><td>ESP32 <span class="mono">3V3 · GND · 21 · 22</span></td><td class="num">4</td><td>จ่าย 3.3V เท่านั้น · SDA กับ SCL สลับกันบ่อยมาก</td></tr>
+        <tr><td>Buzzer <span class="mono">+ / −</span></td><td>ESP32 <span class="mono">4 · GND</span></td><td class="num">2</td><td>ต่อกลับขั้วแล้วเงียบ ไม่พัง</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ IOT ============ -->
+<section class="sec">
+  <h2>ส่วน IoT</h2>
+  <p class="sec-title">รถแต่ละคันเป็นเว็บเซิร์ฟเวอร์ของตัวเอง</p>
+  <p class="sec-note">วิธีที่ตั้งค่าน้อยที่สุดและพังยากที่สุด เพราะไม่พึ่งอุปกรณ์ใดนอกจากตัวรถเอง สิ่งที่ครูต้องแก้ในโค้ดมีบรรทัดเดียวคือหมายเลขทีม</p>
+  <div class="flow">
+    <div class="step"><b>ขั้น 1</b><p>นักเรียน <strong>กดปุ่ม BOOT ค้าง 1 วินาที</strong> รถปล่อย WiFi ชื่อ ROVER-01 ถึง ROVER-15</p></div>
+    <div class="step"><b>ขั้น 2</b><p>มือถือเชื่อม WiFi ของทีมตัวเอง รหัสผ่าน <strong>rover2026</strong> เหมือนกันทุกคัน</p></div>
+    <div class="step"><b>ขั้น 3</b><p>เปิดเบราว์เซอร์พิมพ์ <strong>192.168.4.1</strong> ทุกทีมใช้เลขเดียวกัน เพราะเป็นคนละเครือข่าย</p></div>
+    <div class="step"><b>ขั้น 4</b><p>กดปุ่ม BOOT สั้น ๆ <strong>ปิด WiFi คืนคลื่น</strong> ให้ทีมถัดไป</p></div>
+  </div>
+  <div class="gaps">
+    <div class="gap good">
+      <h4>สิ่งที่เด็กเห็นบนหน้าเว็บ</h4>
+      <p>ตัวเลขระยะขนาดใหญ่ที่เปลี่ยนตามการโบกมือ · กราฟเส้นย้อนหลัง 60 จุดวาดสดในเบราว์เซอร์ · ค่าที่ทีมตัวเองจูนไว้ทั้ง ms ต่อ ซม. TRIM และความคลาดเคลื่อนสองรอบ · ปุ่มบังคับรถพร้อมระบบเบรกอัตโนมัติเมื่อใกล้กว่า 12 ซม.</p>
+    </div>
+    <div class="gap">
+      <h4>สามอย่างที่กันคลื่นชนกัน</h4>
+      <p>WiFi ปิดอยู่ตอนเปิดเครื่อง ต้องกดปุ่มเองถึงจะเปิด ครูจึงคุมได้ว่าให้กี่ทีมเปิดพร้อมกัน · ลดกำลังส่งเหลือ 8.5 dBm สัญญาณไปไม่ไกลข้ามห้อง · ปิดตัวเองอัตโนมัติใน 3 นาที กันเด็กลืมปิดแล้วคลื่นแน่นสะสม</p>
+    </div>
+    <div class="gap soft">
+      <h4>ทางเลือกสำรอง หากอยากได้กราฟรวมของทั้งห้อง</h4>
+      <p>มีโค้ดอีกชุดที่ยิงข้อมูลขึ้น Google Sheet ผ่านฮอตสปอตมือถือครู ได้กราฟเปรียบเทียบทั้ง 15 ทีมฉายขึ้นจอพร้อมกัน แต่ต้องเตรียม Apps Script และทดสอบล่วงหน้า เลือกใช้ก็ต่อเมื่อมีเวลาเตรียมและอยากได้ภาพเปรียบเทียบทั้งห้องจริง ๆ</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GAPS ============ -->
+<section class="sec">
+  <h2>ก่อนสั่งของเพิ่ม</h2>
+  <p class="sec-title">สิ่งที่ยังไม่มีในใบเสนอราคา</p>
+  <p class="sec-note">ใบเสนอราคา 19,950 บาท ครอบคลุมเฉพาะอุปกรณ์ในชุดของนักเรียน ยังไม่มีของส่วนกลางเลยสักรายการ</p>
+  <div class="gaps">
+    <div class="gap">
+      <h4>เครื่องชาร์จ 18650 <span class="cost">≈ 400–500 บาท × 2 เครื่อง</span></h4>
+      <p>ถ่าน 30 ก้อนมาแบบไม่ได้ชาร์จ และต้องเต็มทุกก้อนก่อนเข้าห้อง ไม่มีเครื่องชาร์จคือกิจกรรมไม่เกิด เครื่อง 4 ช่องสองเครื่องใช้เวลาชาร์จครบราวหนึ่งคืน</p>
+    </div>
+    <div class="gap">
+      <h4>ตลับเมตร หรือไม้บรรทัดเหล็ก 50 ซม. <span class="cost">≈ 40 บาท × 15 อัน = 600 บาท</span></h4>
+      <p>ช่วงปรับจูนคือการวัดล้วน ๆ ทีมที่ไม่มีเครื่องมือวัดคือทีมที่นั่งดูเพื่อน ของถูกที่สุดในลิสต์แต่ขาดไม่ได้ที่สุด</p>
+    </div>
+    <div class="gap">
+      <h4>ถ่าน 18650 สำรอง <span class="cost">≈ 340 บาท × 4 คู่ = 1,360 บาท</span></h4>
+      <p>15 ทีมใช้ถ่านพอดี 30 ก้อน ไม่เหลือสำรองแม้แต่ก้อนเดียว ถ่านเสียหนึ่งก้อนคือหนึ่งทีมหยุดทำงานทั้งคาบ</p>
+    </div>
+    <div class="gap soft">
+      <h4>สายต่อ USB หรือ USB hub <span class="cost">≈ 500 บาท</span></h4>
+      <p>สายที่สั่งยาว 30 ซม. ตอนอัปโหลดต้องยกรถขึ้นวางข้างคอม เตรียมสายต่อไว้สัก 5 เส้นพอบรรเทาได้</p>
+    </div>
+    <div class="gap soft">
+      <h4>ปลั๊กพ่วง เทปกาวย่น ปากกาเมจิก <span class="cost">≈ 700 บาท</span></h4>
+      <p>เทปกาวย่นใช้เขียนชื่อทีมแปะรถ ตีเส้นสตาร์ท และทำเครื่องหมายระยะ 100 ซม. บนพื้น</p>
+    </div>
+    <div class="gap good">
+      <h4>ไม่ต้องซื้อเราเตอร์แล้ว <span class="cost">ประหยัด 1,400 บาท</span></h4>
+      <p>แผนใหม่ใช้ฮอตสปอตมือถือครูและยิงข้อมูลออกนอกอย่างเดียว จึงตัดเราเตอร์และการตั้งค่าเครือข่ายทั้งหมดออกได้ พร้อมกับตัดความเสี่ยงที่ใหญ่ที่สุดของแผนเดิมทิ้งไปด้วย</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHECKLIST ============ -->
+<section class="sec">
+  <h2>งานเตรียม</h2>
+  <p class="sec-title">ต้องเสร็จก่อนนักเรียนเข้าห้อง</p>
+  <p class="sec-note">รายการขีดแดงคือรายการที่ถ้าไม่เสร็จ ให้เลื่อนกิจกรรมออกไป ไม่ใช่ฝืนทำ</p>
+  <ul class="check">
+    <li class="crit">ยึดมอเตอร์ ล้อ และลูกล้อหน้าเข้าแชสซีครบ 15 คัน</li>
+    <li class="crit">บัดกรีตัวแบ่งแรงดัน 1k + 2k เข้ากับสาย ECHO ให้ครบ 15 ชุด</li>
+    <li class="crit">ชาร์จถ่าน 18650 เต็มทั้ง 30 ก้อน และวัดแรงดันทุกก้อน</li>
+    <li class="crit">ทดสอบเปิด WiFi ของรถ 3 คันพร้อมกัน แล้วเชื่อมด้วยมือถือจริงให้ครบ</li>
+    <li class="crit">ลง Arduino IDE + ESP32 board package + ไดรเวอร์ USB ทุกเครื่อง</li>
+    <li>ประกอบรถต้นแบบ 1 คันให้เสร็จสมบูรณ์ ไว้เป็นตัวอย่างวางหน้าห้อง</li>
+    <li>เตรียมรถสำรอง 1–2 คันที่ต่อสายเสร็จแล้ว ไว้สลับให้ทีมที่ติดปัญหา</li>
+    <li>ปริ๊นต์ใบตรวจสาย 15 แผ่น และแผ่นขยายแปะหน้าห้อง</li>
+    <li>ตีเส้นสตาร์ทและทำเครื่องหมายระยะ 100 ซม. บนพื้นหรือโต๊ะ</li>
+    <li>เขียนวิธีเชื่อม WiFi และเลข 192.168.4.1 แปะไว้หน้าห้องตัวโต ๆ</li>
+    <li>นัดผู้ช่วย 2–3 คน แบ่งโซนละ 5 ทีม บรีฟเรื่องการตรวจสายก่อนจ่ายไฟ</li>
+    <li>เตรียมมัลติมิเตอร์ 2 เครื่องไว้ตรวจไฟเลี้ยงเวลามีทีมติดปัญหา</li>
+  </ul>
+</section>
+
+<!-- ============ TRIAGE ============ -->
+<section class="sec">
+  <h2>หน้างาน</h2>
+  <p class="sec-title">เจอปัญหาแล้วตัดสินใจอย่างไร</p>
+  <p class="sec-note">กฎข้อเดียวเมื่อมี 15 ทีม คือห้ามหยุดทั้งห้องเพื่อซ่อมทีมเดียว สลับของสำรองก่อน ค่อยหาสาเหตุตอนพัก</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>อาการ</th><th>ทำทันที</th><th>เสียเวลา</th></tr></thead>
+      <tbody>
+        <tr><td>เปิดสวิตช์แล้วไม่มีอะไรติดเลย</td><td>วัดไฟที่ขา 5V ของ L298N ด้วยมัลติมิเตอร์ ถ้าไม่มีไฟคือ jumper 5V-EN หลุด</td><td><span class="pill go">40 วิ</span></td></tr>
+        <tr><td>จอ OLED ไม่ติด แต่บอร์ดติด</td><td>สลับสาย SDA กับ SCL ก่อนเป็นอันดับแรก</td><td><span class="pill go">20 วิ</span></td></tr>
+        <tr><td>มอเตอร์หมุนมั่ว ไม่ตรงคำสั่ง</td><td>ตรวจว่าสาย GND ระหว่าง L298N กับ ESP32 ต่ออยู่จริง</td><td><span class="pill go">30 วิ</span></td></tr>
+        <tr><td>บอร์ดรีเซ็ตวนตอนมอเตอร์หมุน</td><td>เปลี่ยนถ่านคู่ใหม่ก่อนเสมอ</td><td><span class="pill go">30 วิ</span></td></tr>
+        <tr><td>อัปโหลดค้างที่ Connecting</td><td>กดปุ่ม BOOT ค้างไว้ตอนขึ้น Connecting</td><td><span class="pill go">20 วิ</span></td></tr>
+        <tr><td>ไม่เห็นพอร์ต COM</td><td>เปลี่ยนสาย USB ก่อนเป็นอันดับแรก</td><td><span class="pill go">30 วิ</span></td></tr>
+        <tr><td>รถวิ่งเบี้ยวมาก</td><td>ปรับ TRIM ทีละ 0.05 อย่าปรับทีเดียวเยอะ</td><td><span class="pill stop">2 นาที</span></td></tr>
+        <tr><td>เซนเซอร์อ่านค่าติดลบตลอด</td><td>สลับสาย TRIG กับ ECHO</td><td><span class="pill go">30 วิ</span></td></tr>
+        <tr><td>ทีมต่อสายผิดจนโมดูลไหม้</td><td>สลับรถสำรองทันที เก็บคันเสียไว้ซ่อมทีหลัง</td><td><span class="pill go">1 นาที</span></td></tr>
+        <tr><td>มือถือหาชื่อ ROVER ไม่เจอ</td><td>เดินเข้าใกล้รถอีก กำลังส่งถูกลดไว้ให้ไปได้ราว 5 เมตร</td><td><span class="pill go">20 วิ</span></td></tr>
+        <tr><td>เชื่อม WiFi ได้แต่หน้าเว็บไม่ขึ้น</td><td>ปิดเน็ตมือถือ (4G) ชั่วคราว บางรุ่นวิ่งออกเน็ตแทน</td><td><span class="pill go">30 วิ</span></td></tr>
+        <tr><td>หลายทีมเชื่อมไม่ติดพร้อมกัน</td><td>สั่งให้ทีมที่ทำเสร็จแล้วกดปิด WiFi ทันที เหลือเปิดครั้งละ 3-4 ทีม</td><td><span class="pill stop">1 นาที</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  ชุดอุปกรณ์ 15 ชุด · ใบเสนอราคาเลขที่ AC260814-1 · โรงเรียนมาบตาพุดพันพิทยาคาร<br>
+  เอกสารประกอบ: ใบตรวจสาย · ใบงานนักเรียน · โค้ด Arduino 6 สเก็ตช์ · ไฟล์ BOM
+</footer>
+
+</div>
