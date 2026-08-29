@@ -86,12 +86,15 @@ cloud/
 docs/
   index.html          แผนดำเนินกิจกรรม 90 นาที (หน้าแรกของ GitHub Pages)
   wiring.html         ผังการต่อสายแบบรูป แยก 3 กลุ่มตามลำดับการต่อ
+  image-prompts.md    prompt สำหรับสร้างรูปประกอบ และรายการรูปที่ต้องถ่ายจริง
   setup-google-sheet.md
 bom/
   BOM.xlsx            ใบเช็กของ 2 ชีต อุปกรณ์ประจำชุด และของส่วนกลาง
 handouts/
   ใบตรวจสาย.docx      1 หน้า A4 ปริ๊นต์แจกทีมละแผ่น ครูเซ็นก่อนให้จ่ายไฟ
   ใบงานนักเรียน.docx   6 หน้า ครอบคลุมทั้ง 5 ส่วนของกิจกรรม
+optional/
+  google-sheet-iot/   แผน IoT แบบเก่าที่ไม่ได้ใช้แล้ว ข้ามได้เลย
 ```
 
 ทุกสเก็ตช์คอมไพล์ผ่านกับ **ESP32 Arduino core 3.0.7**
@@ -118,7 +121,7 @@ https://espressif.github.io/arduino-esp32/package_esp32_index.json
 | Upload Speed | 921600 |
 | Partition Scheme | Default 4MB with spiffs (อย่าเปลี่ยน) |
 
-> สเก็ตช์ตระกูล `05` ใช้พื้นที่ 75–81% ของพาร์ทิชันเริ่มต้น ถ้าเลือกพาร์ทิชันที่เล็กกว่านี้จะอัปโหลดไม่ผ่าน
+> `05_WebServer` ใช้พื้นที่ 75% ของพาร์ทิชันเริ่มต้น ถ้าเลือกพาร์ทิชันที่เล็กกว่านี้จะอัปโหลดไม่ผ่าน
 
 **5. ไดรเวอร์ USB** — ดูชิปบนบอร์ดแล้วลงให้ตรง `CH340` หรือ `CP2102`
 
@@ -145,6 +148,53 @@ https://espressif.github.io/arduino-esp32/package_esp32_index.json
 
 ครูเรียกทีละ 3–4 ทีมขึ้นมาเปิด ทดลอง แล้วปิดก่อนเรียกกลุ่มถัดไป
 
+> แผนเดิมเคยออกแบบให้ยิงข้อมูลขึ้น Google Sheet ผ่านฮอตสปอตมือถือ ตอนนี้ไม่ใช้แล้ว
+> โค้ดชุดนั้นย้ายไปเก็บที่ [`optional/google-sheet-iot/`](optional/google-sheet-iot/) พร้อมเหตุผลที่เปลี่ยน
+
+---
+
+## ปุ่ม BOOT ทำอะไรในแต่ละสเก็ตช์
+
+ปุ่ม BOOT ที่ติดมากับบอร์ดถูกใช้เป็นปุ่มสั่งงานในทุกสเก็ตช์ ไม่ต้องต่อปุ่มเพิ่ม
+
+| สเก็ตช์ | กดสั้น | กดค้าง 1 วินาที |
+|---|---|---|
+| `01_HelloRover` | ไม่ใช้ วนทดสอบอัตโนมัติ | — |
+| `02_Drive` | เริ่มภารกิจ | — |
+| `03_Tune` | วิ่งตามโหมดที่เลือกอยู่ | เปลี่ยนโหมด |
+| `04_Sense` | ขับเข้าหากำแพง | สลับเป็นโหมดอ่านค่าเฉย ๆ |
+| `05_WebServer` | ปิด WiFi | เปิด WiFi |
+| `05_SendToSheet` | ส่งข้อมูลขึ้นชีต | — |
+
+---
+
+## เฉลย 02_Drive_STUDENT
+
+หกจุดที่นักเรียนต้องเติม ห้าจุดแรกคือ
+
+```cpp
+void forward(int s)   { leftMotor( 1, s); rightMotor( 1, s); }
+void backward(int s)  { leftMotor(-1, s); rightMotor(-1, s); }
+void turnLeft(int s)  { leftMotor(-1, s); rightMotor( 1, s); }
+void turnRight(int s) { leftMotor( 1, s); rightMotor(-1, s); }
+void stopAll()        { leftMotor( 0, 0); rightMotor( 0, 0); }
+```
+
+จุดที่หกคือลำดับคำสั่งใน `mission()` ไม่มีคำตอบเดียวที่ถูก ตัวอย่างหนึ่งคือ
+
+```cpp
+say("turn right"); turnRight(SPEED); delay(600);  stopAll(); delay(300);
+say("forward");    forward(SPEED);   delay(1000); stopAll(); delay(300);
+say("turn right"); turnRight(SPEED); delay(600);  stopAll(); delay(300);
+say("forward");    forward(SPEED);   delay(2000); stopAll();
+```
+
+**จุดที่นักเรียนมักพลาด** ปล่อยให้เจอเองได้ อย่ารีบเฉลย
+
+- ลืม `stopAll()` หลัง `delay()` รถเลยวิ่งต่อไม่หยุด
+- ใส่ `turnLeft` แทน `turnRight` รถวนออกนอกเส้นทาง
+- เขียน `leftMotor(1, s)` ทั้งสองบรรทัดใน `turnRight` รถวิ่งตรงแทนที่จะหมุน
+
 ---
 
 ## ค่าที่ต้องแก้ก่อนแจกนักเรียน
@@ -152,7 +202,8 @@ https://espressif.github.io/arduino-esp32/package_esp32_index.json
 | ไฟล์ | บรรทัด |
 |---|---|
 | ทุกสเก็ตช์ | `TEAM_NAME` หรือ `TEAM_NO` |
-| `05_SendToSheet` เท่านั้น | `WIFI_SSID` `WIFI_PASS` `SCRIPT_URL` |
+
+แค่นั้น ไม่มีค่าเครือข่ายอะไรต้องตั้งเลย
 
 ---
 
